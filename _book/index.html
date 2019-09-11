@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Reliable Construction of Matrix Population Models from Demographic Information</title>
+  <meta name="description" content="Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Reliable Construction of Matrix Population Models from Demographic Information" />
+  
+  
+  
+
+<meta name="author" content="Bruce E. Kendall" />
+
+
+<meta name="date" content="2019-09-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="intro.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MPM Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Simple Matrix Population Models</b></span></li>
+<li class="chapter" data-level="2" data-path="general-considerations.html"><a href="general-considerations.html"><i class="fa fa-check"></i><b>2</b> General Considerations</a></li>
+<li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a></li>
+<li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a></li>
+<li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reliable Construction of Matrix Population Models from Demographic Information</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Reliable Construction of Matrix Population Models from Demographic Information</h1>
+<p class="author"><em>Bruce E. Kendall</em></p>
+<p class="date"><em>2019-09-11</em></p>
+</div>
+<div id="preface" class="section level1 unnumbered">
+<h1>Preface</h1>
+<p>Matrix population models are powerful tools for quantitatively integrating demographic and life history information to address ecological questions as well as prioritizing management for rare, harvested, or invasive species.</p>
+<p>The growth of empirical MPMs</p>
+<p>Getting MPMs just right can be tricky if one is not used to “thinking like a modeller.”</p>
+<p>Lots of published MPMs have errors (Kendall et al. 2019)</p>
+<p>The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it statistically, but you are not well-versed in constructing and analyzing mathematical models.</p>
+<p>The first goal of this book is to provide a gentle tutorial, and introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.</p>
+<p>I start with the classic age-, size-, and stage-structured MPMs.</p>
+<p>This approach is then expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MPM-construction.pdf", "MPM-construction.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
