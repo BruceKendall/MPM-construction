@@ -1,2 +1,55 @@
 # Age-Structured Models
 
+## The recipe
+### Ingredients
+For more details on data needs, see XXX, but in brief:
+
+1. A list of annual survival rates (the fraction of individuals that survive for a year), one for each age. 
+Ideally, this will be survival from one birthay to the next (including from birth to the first birthday). 
+If males and females have different survival rates, list the female values. 
+We will call this list the vector $\vect{p}$, with elements $p_0$, $p_1$, $p_2$, etc.
+2. A list of age-specific birth rates: For each parental age, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent. 
+We will call this list the vector $\vect{b}$, with elements $b_1$, $b_2$, etc. 
+Newborns cannot reproduce, so there is no value of $b_0$; if the age at first reproduction is less than one, then you will need a shorter timestep.
+3. Identify the maximum age, above which there is no survival. 
+Call this age $m$; while there may be a non-zero birth rate $b_m$, $m$-year-olds do not survive to age $m+1$, so $p_m = 0$. 
+
+When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
+In fact, these two lists provide all the information needed to construct the other columns of the life table; but we don't need those to construct an MPM, so don't pursue that further.
+
+```{r snail-lt, echo=FALSE}
+snail <- data.frame(x = 0:5, px = c(0.819, 0.5165, 0.2648, 0.0536, 0.1667, NA), bx = c(NA, 0, 16.69, 6, 0, 0))
+knitr::kable(
+  snail,
+  caption = "Age-specific survival and birth rates for the land snail _Fruticicola fruticum_ (Bradybaenidae)  (Staicou et al. 1990)",
+  col.names = c("Age in years ($x$)", "Annual survival ($p_x$)", "Female offpring per female ($b_x$)") 
+)
+```
+
+### Construct the birth matrix, $\vect{B}$
+1. Make an $m \times m$ identity matrix (with ones on the diagonal, and zeros everywhere else)
+2. Add an extra row on top, with the birth rates
+
+If $m=3$, this would look like:
+\begin{equation}
+\vect{B} = \begin{pmatrix}
+              b_1 & b_2 & b_3 \\
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{pmatrix}
+\end{equation}
+
+### Construct the survival matrix, $\vect{P}$
+1. Make an $m \times m$ matrix with the survival values on the diagonal, and zeros everywhere else
+2. Add an extra column of zeros on the right
+
+If $m=3$, this would look like:
+\begin{equation}
+\vect{P} = \begin{pmatrix}
+              p_0 & 0 & 0 & 0 \\
+              0 & p_1 & 0 & 0 \\
+              0 & 0 & p_2 & 0
+            \end{pmatrix}
+\end{equation}
+
