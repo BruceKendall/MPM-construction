@@ -53,3 +53,81 @@ If $m=3$, this would look like:
             \end{pmatrix}
 \end{equation}
 
+### Combine the birth and survival matrices into the projection matrix
+You have two choices here: 
+
+* the *postbreeding census model* (which we denote $\vect{A_{post}}$), which takes the population immediately after the breeding season in one yeqr (including the newborns) and projects it to immediately after the breeding season the next year;  
+* the *prebreeding census model* (which we denote $\vect{A_{pre}}$), which takes the population immediately before the breeding season in one yeqr (so that the youngest individuals are just about to reach their first birthday) and projects it to immediately before the breeding season the next year.
+
+Both versions model the same population; the only difference is when you peek in to see the population abundances. Here are the formulas:
+
+\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &= \vect{B} \vect{P}\\
+\vect{A_{pre}} &= \vect{P} \vect{B}
+\end{aligned}
+\end{equation}
+
+The formulas look similar, differing only in the order of multiplication. But remember that matrix multiplication is not commutative! 
+
+For the $m=3$ case above, these work out to:
+\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &= \begin{pmatrix}
+              p_0 b_1 & p_1 b_2 & p_2 b_3 & 0\\
+              p_0 & 0 & 0 & 0 \\
+              0 & p_1 & 0 & 0 \\
+              0 & 0 & p_2 & 0
+            \end{pmatrix} \label{eq:Apost_3}\\
+\vect{A_{pre}} &= \begin{pmatrix}
+              b_1 p_0 & b_2 p_0 & b_3 p_0 \\
+              p_1 & 0 & 0 \\
+              0 & p_2 & 0
+            \end{pmatrix} \label{eq:Apre_3}
+\end{aligned}
+\end{equation}
+
+## Example
+Let's apply this to the snail life table in Table XXX. This model is large enough that I don't want to calculate it by hand, so I'll use R:
+```{r}
+px <- c(0.819, 0.5165, 0.2648, 0.0536, 0.1667) # Survival 
+bx <- c(0, 16.69, 6, 0, 0)                     # Births
+m  <- 5                                        # Maximum age
+
+# Construct the birth matrix, B
+# A useful tool: diag(m) creates an m x m matrix with ones on the diagonal
+#   and zeros everywhere else
+B <- diag(m) # Make an m x m diagonal matrix
+B <- rbind(bx, B) # Add an extra row on top, with the birth rates
+B
+
+# Construct the survival matrix, P
+# A useful tool: diag(px) creates an m x m matrix with the values of px 
+#   on the diagonal and zeros everywhere else
+P <- diag(px)
+P <- cbind(P, 0)
+P
+```
+Notice that the rownames of the matrix B are odd; it doesn't really matter, but if you want things to be tidier, you can use this slightly more complex command (it also does both steps at once):
+```{r}
+B <- matrix(c(bx, diag(m)), 
+            nrow = m + 1, 
+            ncol = m, 
+            byrow = TRUE)
+B
+```
+Now on to the final steps:
+```{r}
+# Make the postbreeding census model
+Apost <- B %*% P
+Apost
+
+# Make the prebreeding census model
+Apre <- P %*% B
+Apre
+```
+
+THIS IS ACTUALLY NOT A VERY GOOD EXAMPLE, BECAUSE OF THE ZERO BIRTH RATES FROM THE LATER AGES. LOOK FOR SOMETHING BETTER
+
+## Why use this recipe?
+Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.
