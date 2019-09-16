@@ -17,12 +17,14 @@ Call this age $m$; while there may be a non-zero birth rate $b_m$, $m$-year-olds
 When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
 In fact, these two lists provide all the information needed to construct the other columns of the life table; but we don't need those to construct an MPM, so don't pursue that further.
 
-```{r snail-lt, echo=FALSE}
-snail <- data.frame(x = 0:5, px = c(0.819, 0.5165, 0.2648, 0.0536, 0.1667, NA), bx = c(NA, 0, 16.69, 6, 0, 0))
+```{r lizard-lt, echo=FALSE}
+px <- c(0.424, 308/424, 158/308, 57/158, 10/57, 0.7, 2/7) # Survival 
+bx <- c(0.08, 2.94, 4.13, 4.88, 6.5, 6.5, 6.5)/2                     # Births
+lizard <- data.frame(x = 0:7, px = c(round(px, 3), NA), bx = c(NA, bx))
 knitr::kable(
-  snail,
-  caption = "Age-specific survival and birth rates for the land snail _Fruticicola fruticum_ (Bradybaenidae)  (Staicou et al. 1990)",
-  col.names = c("Age in years ($x$)", "Annual survival ($p_x$)", "Female offpring per female ($b_x$)") 
+  lizard,
+  caption = "Age-specific survival and birth rates for the lizard _Lacerta vivipara_ in the Netherlands [@Strijbosch1988]. ",
+  col.names = c("Age in years ($x$)", "Female annual survival ($p_x$)", "Female offpring per female ($b_x$)") 
 )
 ```
 
@@ -91,9 +93,9 @@ For the $m=3$ case above, these work out to:
 ## Example
 Let's apply this to the snail life table in Table XXX. This model is large enough that I don't want to calculate it by hand, so I'll use R:
 ```{r}
-px <- c(0.819, 0.5165, 0.2648, 0.0536, 0.1667) # Survival 
-bx <- c(0, 16.69, 6, 0, 0)                     # Births
-m  <- 5                                        # Maximum age
+px <- c(0.424, 0.726, 0.513, 0.361, 0.175, 0.7, 0.286) # Survival 
+bx <- c(0.040, 1.470, 2.065, 2.440, 3.250, 3.250, 3.250)                     # Births
+m  <- 7                                        # Maximum age
 
 # Construct the birth matrix, B
 # A useful tool: diag(m) creates an m x m matrix with ones on the diagonal
@@ -179,12 +181,14 @@ lambda(Apost)
 lambda(Apre)
 
 # Calculate the sensitivity matrices
-#Spost <- sensitivity(Apost)
-#Spre <- sensitivity(Apre)
+Spost <- sensitivity(Apost)
+Spre <- sensitivity(Apre)
 
 # Do the matrix multiplication to calculate the sensitivities to survival
-#t(B) %*% Spost
-# Do the matrix multiplication to calculate the sensitivities to birth rates
-#t(P) %*% Spre
+Stemp1 <- t(B) %*% Spost
+diag(Stemp1[, 1:m])
 
+# Do the matrix multiplication to calculate the sensitivities to birth rates
+Stemp2 <- t(P) %*% Spre
+Stemp2[1, ]
 ```
