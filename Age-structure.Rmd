@@ -130,7 +130,6 @@ Apre <- P %*% B
 Apre
 ```
 
-THIS IS ACTUALLY NOT A VERY GOOD EXAMPLE, BECAUSE OF THE ZERO BIRTH RATES FROM THE LATER AGES. LOOK FOR SOMETHING BETTER
 
 ## Why use this recipe?
 Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.
