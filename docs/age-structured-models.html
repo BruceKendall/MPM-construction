@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Age-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information</title>
+  <meta name="description" content="Chapter 3 Age-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Age-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Age-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  
+  
+  
+
+<meta name="author" content="Bruce E. Kendall" />
+
+
+<meta name="date" content="2019-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="general-considerations.html"/>
+<link rel="next" href="stage-structured-models.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">MPM Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Simple Matrix Population Models</b></span></li>
+<li class="chapter" data-level="2" data-path="general-considerations.html"><a href="general-considerations.html"><i class="fa fa-check"></i><b>2</b> General Considerations</a></li>
+<li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="age-structured-models.html"><a href="age-structured-models.html#the-recipe"><i class="fa fa-check"></i><b>3.1</b> The recipe</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="age-structured-models.html"><a href="age-structured-models.html#ingredients"><i class="fa fa-check"></i><b>3.1.1</b> Ingredients</a></li>
+<li class="chapter" data-level="3.1.2" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-birth-matrix-mathbfb"><i class="fa fa-check"></i><b>3.1.2</b> Construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-survival-matrix-mathbfp"><i class="fa fa-check"></i><b>3.1.3</b> Construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span></a></li>
+<li class="chapter" data-level="3.1.4" data-path="age-structured-models.html"><a href="age-structured-models.html#combine-the-birth-and-survival-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Combine the birth and survival matrices into the projection matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="age-structured-models.html"><a href="age-structured-models.html#example"><i class="fa fa-check"></i><b>3.2</b> Example</a></li>
+<li class="chapter" data-level="3.3" data-path="age-structured-models.html"><a href="age-structured-models.html#why-use-this-recipe"><i class="fa fa-check"></i><b>3.3</b> Why use this recipe?</a></li>
+<li class="chapter" data-level="3.4" data-path="age-structured-models.html"><a href="age-structured-models.html#sensitivity-analyses"><i class="fa fa-check"></i><b>3.4</b> Sensitivity analyses</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="age-structured-models.html"><a href="age-structured-models.html#example-1"><i class="fa fa-check"></i><b>3.4.1</b> Example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a></li>
+<li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reliable Construction of Matrix Population Models from Demographic Information</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="age-structured-models" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Age-Structured Models</h1>
+<div id="the-recipe" class="section level2">
+<h2><span class="header-section-number">3.1</span> The recipe</h2>
+<div id="ingredients" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Ingredients</h3>
+<p>For more details on data needs, see XXX, but in brief:</p>
+<ol style="list-style-type: decimal">
+<li>A list of annual survival rates (the fraction of individuals that survive for a year), one for each age.
+Ideally, this will be survival from one birthay to the next (including from birth to the first birthday).
+If males and females have different survival rates, list the female values.
+We will call this list the vector <span class="math inline">\(\mathbf{p}\)</span>, with elements <span class="math inline">\(p_0\)</span>, <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, etc.</li>
+<li>A list of age-specific birth rates: For each parental age, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent.
+We will call this list the vector <span class="math inline">\(\mathbf{b}\)</span>, with elements <span class="math inline">\(b_1\)</span>, <span class="math inline">\(b_2\)</span>, etc.
+Newborns cannot reproduce, so there is no value of <span class="math inline">\(b_0\)</span>; if the age at first reproduction is less than one, then you will need a shorter timestep.</li>
+<li>Identify the maximum age, above which there is no survival.
+Call this age <span class="math inline">\(m\)</span>; while there may be a non-zero birth rate <span class="math inline">\(b_m\)</span>, <span class="math inline">\(m\)</span>-year-olds do not survive to age <span class="math inline">\(m+1\)</span>, so <span class="math inline">\(p_m = 0\)</span>.</li>
+</ol>
+<p>When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
+In fact, these two lists provide all the information needed to construct the other columns of the life table; but we don’t need those to construct an MPM, so don’t pursue that further.</p>
+<table>
+<caption><span id="tab:lizard-lt">Table 3.1: </span>Age-specific survival and birth rates for the lizard <em>Lacerta vivipara</em> in the Netherlands <span class="citation">(Strijbosch and Creemers <a href="#ref-Strijbosch1988">1988</a>)</span>.</caption>
+<thead>
+<tr class="header">
+<th align="right">Age in years (<span class="math inline">\(x\)</span>)</th>
+<th align="right">Female annual survival (<span class="math inline">\(p_x\)</span>)</th>
+<th align="right">Female offpring per female (<span class="math inline">\(b_x\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.424</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0.726</td>
+<td align="right">0.040</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">0.513</td>
+<td align="right">1.470</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">0.361</td>
+<td align="right">2.065</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">0.175</td>
+<td align="right">2.440</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">0.700</td>
+<td align="right">3.250</td>
+</tr>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">0.286</td>
+<td align="right">3.250</td>
+</tr>
+<tr class="even">
+<td align="right">7</td>
+<td align="right">NA</td>
+<td align="right">3.250</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="construct-the-birth-matrix-mathbfb" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span></h3>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\(m \times m\)</span> identity matrix (with ones on the diagonal, and zeros everywhere else)</li>
+<li>Add an extra row on top, with the birth rates</li>
+</ol>
+<p>If <span class="math inline">\(m=3\)</span>, this would look like:
+<span class="math display">\[\begin{equation}
+\mathbf{B} = \begin{pmatrix}
+              b_1 &amp; b_2 &amp; b_3 \\
+              1 &amp; 0 &amp; 0 \\
+              0 &amp; 1 &amp; 0 \\
+              0 &amp; 0 &amp; 1
+            \end{pmatrix}
+\end{equation}\]</span></p>
+</div>
+<div id="construct-the-survival-matrix-mathbfp" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span></h3>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\(m \times m\)</span> matrix with the survival values on the diagonal, and zeros everywhere else</li>
+<li>Add an extra column of zeros on the right</li>
+</ol>
+<p>If <span class="math inline">\(m=3\)</span>, this would look like:
+<span class="math display">\[\begin{equation}
+\mathbf{P} = \begin{pmatrix}
+              p_0 &amp; 0 &amp; 0 &amp; 0 \\
+              0 &amp; p_1 &amp; 0 &amp; 0 \\
+              0 &amp; 0 &amp; p_2 &amp; 0
+            \end{pmatrix}
+\end{equation}\]</span></p>
+</div>
+<div id="combine-the-birth-and-survival-matrices-into-the-projection-matrix" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Combine the birth and survival matrices into the projection matrix</h3>
+<p>You have two choices here:</p>
+<ul>
+<li>the <em>postbreeding census model</em> (which we denote <span class="math inline">\(\mathbf{A_{post}}\)</span>), which takes the population immediately after the breeding season in one yeqr (including the newborns) and projects it to immediately after the breeding season the next year;<br />
+</li>
+<li>the <em>prebreeding census model</em> (which we denote <span class="math inline">\(\mathbf{A_{pre}}\)</span>), which takes the population immediately before the breeding season in one yeqr (so that the youngest individuals are just about to reach their first birthday) and projects it to immediately before the breeding season the next year.</li>
+</ul>
+<p>Both versions model the same population; the only difference is when you peek in to see the population abundances. Here are the formulas:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+\mathbf{A_{post}} &amp;= \mathbf{B} \mathbf{P}\\
+\mathbf{A_{pre}} &amp;= \mathbf{P} \mathbf{B}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>The formulas look similar, differing only in the order of multiplication. But remember that matrix multiplication is not commutative!</p>
+<p>For the <span class="math inline">\(m=3\)</span> case above, these work out to:
+<span class="math display" id="eq:A3-pre-post">\[\begin{equation}
+\begin{aligned}
+\mathbf{A_{post}} &amp;= \begin{pmatrix}
+              p_0 b_1 &amp; p_1 b_2 &amp; p_2 b_3 &amp; 0\\
+              p_0 &amp; 0 &amp; 0 &amp; 0 \\
+              0 &amp; p_1 &amp; 0 &amp; 0 \\
+              0 &amp; 0 &amp; p_2 &amp; 0
+            \end{pmatrix} \\
+\mathbf{A_{pre}} &amp;= \begin{pmatrix}
+              b_1 p_0 &amp; b_2 p_0 &amp; b_3 p_0 \\
+              p_1 &amp; 0 &amp; 0 \\
+              0 &amp; p_2 &amp; 0
+            \end{pmatrix} 
+\end{aligned}
+\tag{3.1}
+\end{equation}\]</span></p>
+</div>
+</div>
+<div id="example" class="section level2">
+<h2><span class="header-section-number">3.2</span> Example</h2>
+<p>Let’s apply this to the snail life table in Table XXX. This model is large enough that I don’t want to calculate it by hand, so I’ll use R:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.424</span>, <span class="fl">0.726</span>, <span class="fl">0.513</span>, <span class="fl">0.361</span>, <span class="fl">0.175</span>, <span class="fl">0.7</span>, <span class="fl">0.286</span>) <span class="co"># Survival </span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.040</span>, <span class="fl">1.470</span>, <span class="fl">2.065</span>, <span class="fl">2.440</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>)                     <span class="co"># Births</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">m  &lt;-<span class="st"> </span><span class="dv">7</span>                                        <span class="co"># Maximum age</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># Construct the birth matrix, B</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># A useful tool: diag(m) creates an m x m matrix with ones on the diagonal</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#   and zeros everywhere else</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">B &lt;-<span class="st"> </span><span class="kw">diag</span>(m) <span class="co"># Make an m x m diagonal matrix</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, B) <span class="co"># Add an extra row on top, with the birth rates</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">B</a></code></pre></div>
+<pre><code>##    [,1] [,2]  [,3] [,4] [,5] [,6] [,7]
+## bx 0.04 1.47 2.065 2.44 3.25 3.25 3.25
+##    1.00 0.00 0.000 0.00 0.00 0.00 0.00
+##    0.00 1.00 0.000 0.00 0.00 0.00 0.00
+##    0.00 0.00 1.000 0.00 0.00 0.00 0.00
+##    0.00 0.00 0.000 1.00 0.00 0.00 0.00
+##    0.00 0.00 0.000 0.00 1.00 0.00 0.00
+##    0.00 0.00 0.000 0.00 0.00 1.00 0.00
+##    0.00 0.00 0.000 0.00 0.00 0.00 1.00</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Construct the survival matrix, P</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># A useful tool: diag(px) creates an m x m matrix with the values of px </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#   on the diagonal and zeros everywhere else</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">P &lt;-<span class="st"> </span><span class="kw">cbind</span>(P, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">P</a></code></pre></div>
+<pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5] [,6]  [,7] [,8]
+## [1,] 0.424 0.000 0.000 0.000 0.000  0.0 0.000    0
+## [2,] 0.000 0.726 0.000 0.000 0.000  0.0 0.000    0
+## [3,] 0.000 0.000 0.513 0.000 0.000  0.0 0.000    0
+## [4,] 0.000 0.000 0.000 0.361 0.000  0.0 0.000    0
+## [5,] 0.000 0.000 0.000 0.000 0.175  0.0 0.000    0
+## [6,] 0.000 0.000 0.000 0.000 0.000  0.7 0.000    0
+## [7,] 0.000 0.000 0.000 0.000 0.000  0.0 0.286    0</code></pre>
+<p>Notice that the rownames of the matrix B are odd; it doesn’t really matter, but if you want things to be tidier, you can use this slightly more complex command (it also does both steps at once):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bx, <span class="kw">diag</span>(m)), </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">            <span class="dt">nrow =</span> m <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">            <span class="dt">ncol =</span> m, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">B</a></code></pre></div>
+<pre><code>##      [,1] [,2]  [,3] [,4] [,5] [,6] [,7]
+## [1,] 0.04 1.47 2.065 2.44 3.25 3.25 3.25
+## [2,] 1.00 0.00 0.000 0.00 0.00 0.00 0.00
+## [3,] 0.00 1.00 0.000 0.00 0.00 0.00 0.00
+## [4,] 0.00 0.00 1.000 0.00 0.00 0.00 0.00
+## [5,] 0.00 0.00 0.000 1.00 0.00 0.00 0.00
+## [6,] 0.00 0.00 0.000 0.00 1.00 0.00 0.00
+## [7,] 0.00 0.00 0.000 0.00 0.00 1.00 0.00
+## [8,] 0.00 0.00 0.000 0.00 0.00 0.00 1.00</code></pre>
+<p>Now on to the final steps:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Make the postbreeding census model</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>P</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">Apost</a></code></pre></div>
+<pre><code>##         [,1]    [,2]     [,3]    [,4]    [,5]  [,6]   [,7] [,8]
+## [1,] 0.01696 1.06722 1.059345 0.88084 0.56875 2.275 0.9295    0
+## [2,] 0.42400 0.00000 0.000000 0.00000 0.00000 0.000 0.0000    0
+## [3,] 0.00000 0.72600 0.000000 0.00000 0.00000 0.000 0.0000    0
+## [4,] 0.00000 0.00000 0.513000 0.00000 0.00000 0.000 0.0000    0
+## [5,] 0.00000 0.00000 0.000000 0.36100 0.00000 0.000 0.0000    0
+## [6,] 0.00000 0.00000 0.000000 0.00000 0.17500 0.000 0.0000    0
+## [7,] 0.00000 0.00000 0.000000 0.00000 0.00000 0.700 0.0000    0
+## [8,] 0.00000 0.00000 0.000000 0.00000 0.00000 0.000 0.2860    0</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Make the prebreeding census model</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">Apre &lt;-<span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">Apre</a></code></pre></div>
+<pre><code>##         [,1]    [,2]    [,3]    [,4]  [,5]  [,6]  [,7]
+## [1,] 0.01696 0.62328 0.87556 1.03456 1.378 1.378 1.378
+## [2,] 0.72600 0.00000 0.00000 0.00000 0.000 0.000 0.000
+## [3,] 0.00000 0.51300 0.00000 0.00000 0.000 0.000 0.000
+## [4,] 0.00000 0.00000 0.36100 0.00000 0.000 0.000 0.000
+## [5,] 0.00000 0.00000 0.00000 0.17500 0.000 0.000 0.000
+## [6,] 0.00000 0.00000 0.00000 0.00000 0.700 0.000 0.000
+## [7,] 0.00000 0.00000 0.00000 0.00000 0.000 0.286 0.000</code></pre>
+</div>
+<div id="why-use-this-recipe" class="section level2">
+<h2><span class="header-section-number">3.3</span> Why use this recipe?</h2>
+<p>Now, these matrices don’t look that complex; why didn’t I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the <em>fertility coefficients</em>, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don’t worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.</p>
+</div>
+<div id="sensitivity-analyses" class="section level2">
+<h2><span class="header-section-number">3.4</span> Sensitivity analyses</h2>
+<p>This book is about MPM construction, not the analysis of such models.
+Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted <span class="math inline">\(\lambda\)</span>) to changes in the age-specific birth and death rates.
+Existing tools (e.g., the <code>sensitivity()</code> function in the <strong>popbio</strong> R package) can calculate sensitivities of <span class="math inline">\(\lambda\)</span> to changes in the elements of an annual projection matrix (<span class="math inline">\(\mathbf{A_{post}}\)</span> or <span class="math inline">\(\mathbf{A_{pre}}\)</span>).
+However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. <a href="age-structured-models.html#eq:A3-pre-post">(3.1)</a>).
+Extracting the sensitivities of <span class="math inline">\(\lambda\)</span> to vital rates from the sensitivities of <span class="math inline">\(\lambda\)</span> to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.</p>
+<p>Instead, we can make use of established procedures for sensitivy analysis of “periodic matrix products” <span class="citation">(Caswell and Trevisan <a href="#ref-Caswell1994">1994</a>)</span>.
+The recipe is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Construct both the postbreeding census and prebreeding census projection matrices (<span class="math inline">\(\mathbf{A_{post}}\)</span> and <span class="math inline">\(\mathbf{A_{pre}}\)</span>).</li>
+<li>Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
+We will call those <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span> and <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>.</li>
+<li>Construct the <em>transpose</em> of the <span class="math inline">\(\mathbf{B}\)</span> and <span class="math inline">\(\mathbf{P}\)</span> matrices by swapping the rows and columns.
+We will call these <span class="math inline">\(\mathbf{B^T}\)</span> and <span class="math inline">\(\mathbf{P^T}\)</span>.
+For the <span class="math inline">\(m=3\)</span> example, these look like
+<span class="math display">\[\begin{equation}
+\mathbf{B^T} = \begin{pmatrix}
+           b_1 &amp; 1 &amp; 0 &amp; 0\\
+           b_2 &amp; 0 &amp; 1 &amp; 0\\
+           b_3 &amp; 0 &amp; 0 &amp; 1
+         \end{pmatrix}
+\end{equation}\]</span>
+and
+<span class="math display">\[\begin{equation}
+\mathbf{P^T} = \begin{pmatrix}
+           p_0 &amp; 0 &amp; 0\\
+           0 &amp; p_1 &amp; 0\\
+           0 &amp; 0 &amp; p_1\\
+           0 &amp; 0 &amp; 0
+         \end{pmatrix}.
+\end{equation}\]</span></li>
+<li>Matrix multiply <span class="math inline">\(\mathbf{P^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>. The top row in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific birth rates.</li>
+<li>Matrix multiply <span class="math inline">\(\mathbf{B^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span>. The diagonal entries in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific survival rates.</li>
+</ol>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Example</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(popbio) <span class="co"># This library includes tools for calculating lambda and matrix sensitivities</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co"># Confirm that our two A matrices give the same asymptotic growth rate</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">lambda</span>(Apost)</a></code></pre></div>
+<pre><code>## [1] 0.9986679</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
+<pre><code>## [1] 0.9986679</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Calculate the sensitivity matrices</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">Spost &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apost)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">Spre &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apre)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co"># Do the matrix multiplication to calculate the sensitivities to survival</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">Stemp1 &lt;-<span class="st"> </span><span class="kw">t</span>(B) <span class="op">%*%</span><span class="st"> </span>Spost</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="kw">diag</span>(Stemp1[, <span class="dv">1</span><span class="op">:</span>m])</a></code></pre></div>
+<pre><code>## [1] 0.837520960 0.480823977 0.366397726 0.198614806 0.125950860 0.014929771
+## [7] 0.008135051</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to birth rates</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">Stemp2 &lt;-<span class="st"> </span><span class="kw">t</span>(P) <span class="op">%*%</span><span class="st"> </span>Spre</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">Stemp2[<span class="dv">1</span>, ]</a></code></pre></div>
+<pre><code>## [1] 0.1507669993 0.1096028394 0.0563012534 0.0203518625 0.0035663265
+## [6] 0.0024997584 0.0007158845</code></pre>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Caswell1994">
+<p>Caswell, H., and M. C. Trevisan. 1994. “Sensitivity analysis of periodic matrix models.” <em>Ecology</em> 75: 1299–03.</p>
+</div>
+<div id="ref-Strijbosch1988">
+<p>Strijbosch, H., and R. C. M. Creemers. 1988. “Comparative demography of sympatric populations of <em>Lacerta vivipara</em> and <em>Lacerta agilis</em>.” <em>Oecologia</em> 76: 20–26.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="general-considerations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stage-structured-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MPM-construction.pdf", "MPM-construction.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
