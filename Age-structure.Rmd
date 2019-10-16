@@ -17,13 +17,21 @@ Call this age $m$; while there may be a non-zero birth rate $b_m$, $m$-year-olds
 When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
 In fact, these two lists provide all the information needed to construct the other columns of the life table (such as the cumulative survivorship, $l_x$); but we don't need those to construct an MPM, so don't pursue that further.
 
+
+```{r lizard-image,echo=FALSE, fig.cap="The viviparous lizard (*Zootoca vivipara*) in the Aamsveen, The Netherlands. CC-BY-SA [Ocrdu](https://commons.wikimedia.org/wiki/User:Ocrdu)."}
+knitr::include_graphics("figs/Viviparous_lizard_(Zootoca_vivipara)_in_the_Aamsveen,_The_Netherlands.jpg")
+```
+
+The example we will use in this chapter comes from @Strijbosch1988, who quantified the age-specific demography of the viviparous lizard (*Zootoca vivipara*; Fig. \@ref(fig:lizard-image)) in an intensive 7-year study on a 1.2 ha plot at the forest reserve "de Hamert" in the Netherlands.
+The age-specific female birth and survival rates are shown in Table \@ref(tab:lizard-lt).
+
 ```{r lizard-lt, echo=FALSE}
 px <- c(0.424, 308/424, 158/308, 57/158, 10/57, 0.7, 2/7) # Survival 
-bx <- c(0.08, 2.94, 4.13, 4.88, 6.5, 6.5, 6.5)/2                     # Births
-lizard <- data.frame(x = 0:7, px = c(round(px, 3), NA), bx = c(NA, bx))
+bx <- c(0.08, 2.94, 4.13, 4.88, 6.5, 6.5, 6.5)/2          # Births
+lizard <- data.frame(x = 0:7, px = c(round(px, 3), 0), bx = c(NA, bx))
 knitr::kable(
   lizard,
-  caption = "Age-specific survival and birth rates for the lizard _Lacerta vivipara_ in the Netherlands [@Strijbosch1988]. ",
+  caption = "Age-specific survival and birth rates for the lizard _Zootoca vivipara_ (formerly _Lacerta vivipara_) in the Netherlands [@Strijbosch1988]. Age-specific annual survival is calculated from the female cumulative survival values ($l_x$) in their Table 6. Age-specific birth rates are calculated by dividing the birth rates in their Table 6 ($m_x$) by two, as these appear to represent all offspring, and the primary sex ratio (estimated from two-year-old individuals) did not differ from 1 (pp. 21-22).",
   col.names = c("Age in years ($x$)", "Female annual survival ($p_x$)", "Female offpring per female ($b_x$)") 
 )
 ```
