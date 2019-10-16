@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-09-18" />
+<meta name="date" content="2019-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -179,17 +179,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A list of annual survival rates (the fraction of individuals that survive for a year), one for each age.
 Ideally, this will be survival from one birthay to the next (including from birth to the first birthday).
 If males and females have different survival rates, list the female values.
-We will call this list the vector <span class="math inline">\(\mathbf{p}\)</span>, with elements <span class="math inline">\(p_0\)</span>, <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, etc.</li>
+We will call this list the vector <span class="math inline">\(\mathbf{p}\)</span>, with elements <span class="math inline">\(p_0\)</span> (survival probability from birth to age 1), <span class="math inline">\(p_1\)</span> (survival probability from age 1 to age 2), <span class="math inline">\(p_2\)</span> (survival probability from age 2 to age 3), etc.</li>
 <li>A list of age-specific birth rates: For each parental age, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent.
-We will call this list the vector <span class="math inline">\(\mathbf{b}\)</span>, with elements <span class="math inline">\(b_1\)</span>, <span class="math inline">\(b_2\)</span>, etc.
+We will call this list the vector <span class="math inline">\(\mathbf{b}\)</span>, with elements <span class="math inline">\(b_1\)</span> (newborns produced by a 1-year-old parent), <span class="math inline">\(b_2\)</span> (newborns produced by a 2-year-old parent), etc.
 Newborns cannot reproduce, so there is no value of <span class="math inline">\(b_0\)</span>; if the age at first reproduction is less than one, then you will need a shorter timestep.</li>
 <li>Identify the maximum age, above which there is no survival.
 Call this age <span class="math inline">\(m\)</span>; while there may be a non-zero birth rate <span class="math inline">\(b_m\)</span>, <span class="math inline">\(m\)</span>-year-olds do not survive to age <span class="math inline">\(m+1\)</span>, so <span class="math inline">\(p_m = 0\)</span>.</li>
 </ol>
 <p>When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
-In fact, these two lists provide all the information needed to construct the other columns of the life table; but we don’t need those to construct an MPM, so don’t pursue that further.</p>
+In fact, these two lists provide all the information needed to construct the other columns of the life table (such as the cumulative survivorship, <span class="math inline">\(l_x\)</span>); but we don’t need those to construct an MPM, so don’t pursue that further.</p>
+<div class="figure"><span id="fig:lizard-image"></span>
+<img src="figs/Viviparous_lizard_(Zootoca_vivipara)_in_the_Aamsveen,_The_Netherlands.jpg" alt="The viviparous lizard (*Zootoca vivipara*) in the Aamsveen, The Netherlands. CC-BY-SA [Ocrdu](https://commons.wikimedia.org/wiki/User:Ocrdu)."  />
+<p class="caption">
+Figure 3.1: The viviparous lizard (<em>Zootoca vivipara</em>) in the Aamsveen, The Netherlands. CC-BY-SA <a href="https://commons.wikimedia.org/wiki/User:Ocrdu">Ocrdu</a>.
+</p>
+</div>
+<p>The example we will use in this chapter comes from <span class="citation">Strijbosch and Creemers (<a href="#ref-Strijbosch1988">1988</a>)</span>, who quantified the age-specific demography of the viviparous lizard (<em>Zootoca vivipara</em>; Fig. <a href="age-structured-models.html#fig:lizard-image">3.1</a>) in an intensive 7-year study on a 1.2 ha plot at the forest reserve “de Hamert” in the Netherlands.
+The age-specific female birth and survival rates are shown in Table <a href="age-structured-models.html#tab:lizard-lt">3.1</a>.</p>
 <table>
-<caption><span id="tab:lizard-lt">Table 3.1: </span>Age-specific survival and birth rates for the lizard <em>Lacerta vivipara</em> in the Netherlands <span class="citation">(Strijbosch and Creemers <a href="#ref-Strijbosch1988">1988</a>)</span>.</caption>
+<caption><span id="tab:lizard-lt">Table 3.1: </span>Age-specific survival and birth rates for the lizard <em>Zootoca vivipara</em> (formerly <em>Lacerta vivipara</em>) in the Netherlands <span class="citation">(Strijbosch and Creemers <a href="#ref-Strijbosch1988">1988</a>)</span>. Age-specific annual survival is calculated from the female cumulative survival values (<span class="math inline">\(l_x\)</span>) in their Table 6. Age-specific birth rates are calculated by dividing the birth rates in their Table 6 (<span class="math inline">\(m_x\)</span>) by two, as these appear to represent all offspring, and the primary sex ratio (estimated from two-year-old individuals) did not differ from 1 (pp. 21-22).</caption>
 <thead>
 <tr class="header">
 <th align="right">Age in years (<span class="math inline">\(x\)</span>)</th>
@@ -235,7 +243,7 @@ In fact, these two lists provide all the information needed to construct the oth
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">NA</td>
+<td align="right">0.000</td>
 <td align="right">3.250</td>
 </tr>
 </tbody>
