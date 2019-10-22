@@ -1,2 +1,13 @@
 # Stage-Structured Models
 
+We now turn to models of populations in which developmental stage is a stronger determinant of demography than is age or size.
+In the classical formulation, known as *Lefkovitch matrices*, an individual, if it survives, may either stay in its current stage or move to the next stage.
+This creates a characteristic matrix shape in which the non-zero values comprise fertility coefficients across the top row, diagonal elements representing surviving and staying in the next stage, and sub-diagonal elements representing survival and maturation to the next stage (Fig. XXX).
+
+To construct such models, we need to know how demography depends on stage: for each stage $i$, what is the birth rate ($b_i$) and survival rate ($p_i$)?
+In addition, we need to know, of the individuals starting in stage $i$ that survive for a year, what fraction mature to stage $i+1$ by the end of the year?
+We will call this value $g_i$, and name it the "maturation rate" (many texts and articles call this "growth," but I reserve that term for talking about increases in size).
+
+Estimating the maturation rates properly is a somewhat subtle process, depending both on the biology of how individuals move through the developmental stages and on how the model will be used.
+We will look at that in a later section of this chapter.
+First, however, we will look at how to construct a matrix once you have all these values.
