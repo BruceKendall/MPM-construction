@@ -48,6 +48,7 @@ If $m=3$, this would look like:
               0 & 1 & 0 \\
               0 & 0 & 1
             \end{pmatrix}
+(\#eq:B3-age)
 \end{equation}
 
 ### Construct the survival matrix, $\vect{P}$
@@ -99,27 +100,32 @@ For the $m=3$ case above, these work out to:
 \end{equation}
 
 ## Example
-Let's apply this to the snail life table in Table XXX. This model is large enough that I don't want to calculate it by hand, so I'll use R:
+Let's apply this to the lizard life table in Table \@ref(tab:lizard-lt). This model is large enough that I don't want to calculate it by hand, so I'll use R. 
+First, enter the age-specific survival and birth rates, and the maximum age:
 ```{r}
-px <- c(0.424, 0.726, 0.513, 0.361, 0.175, 0.7, 0.286) # Survival 
-bx <- c(0.040, 1.470, 2.065, 2.440, 3.250, 3.250, 3.250)                     # Births
-m  <- 7                                        # Maximum age
+px <- c(0.424, 0.726, 0.513, 0.361, 0.175, 0.700, 0.286) # Survival 
+bx <- c(0.040, 1.470, 2.065, 2.440, 3.250, 3.250, 3.250) # Births
+m  <- 7                                                  # Maximum age
+```
+Notice that the first element of `px` is $p_0$, whereas the first element of `bx` is $b_1$.
+Thus, `px` doesn't have the zero surivival of 7-year-olds, and `bx` doesn't have the zero birth rate of newborns.
+If you are working with a dataset that includes these zeros, you'll need to trim them off before moving to the next step.
 
-# Construct the birth matrix, B
-# A useful tool: diag(m) creates an m x m matrix with ones on the diagonal
-#   and zeros everywhere else
+Now construct the birth matrix, $\vect{B}$.
+A useful function in R is `diag()`, the diagonal function.
+If `m` is a scalar (a single number), then `diag(m)` creates an $m \times m$ matrix with ones on the diagonal and zeros everywhere else.
+Also, recall that `rbind()` ("row bind") adds the second argument below the first argument.
+```{r}
 B <- diag(m) # Make an m x m diagonal matrix
 B <- rbind(bx, B) # Add an extra row on top, with the birth rates
 B
-
-# Construct the survival matrix, P
-# A useful tool: diag(px) creates an m x m matrix with the values of px 
-#   on the diagonal and zeros everywhere else
-P <- diag(px)
-P <- cbind(P, 0)
-P
 ```
-Notice that the rownames of the matrix B are odd; it doesn't really matter, but if you want things to be tidier, you can use this slightly more complex command (it also does both steps at once):
+ALthough it's larger, this matrix has the same structure as Eq. (\@ref(eq:B3-age)).
+
+One quirk of R is that, while the columns are labeled with the index of the columns (which is what we expect for a generic matrix), the first row is labeled "bx" and the rest of the rows are unlabeled.
+The labels don't actually matter for the rest of the calculations, but they will result in the final matrices having uninformative row labels.
+If you don't like this, you can reset the row labels with the command `rownames(B) <- NULL`.
+Alternatively, you can use this slightly more complex command (it also does both steps at once):
 ```{r}
 B <- matrix(c(bx, diag(m)), 
             nrow = m + 1, 
@@ -127,7 +133,18 @@ B <- matrix(c(bx, diag(m)),
             byrow = TRUE)
 B
 ```
-Now on to the final steps:
+Now construct the survival matrix, $\vect{P}$.
+We will again use `diag()`, but in a different way.
+If `px` is a vector with length $m$, then `diag(px)` creates an $m \times m$ matrix with the values of `px` on the diagonal and zeros everywhere else.
+Also, recall that `cbind()` ("column bind") adds the second argument to the right the first argument.
+```{r}
+P <- diag(px)     # Make the diagonal matrix with survival values
+P <- cbind(P, 0)  # Add an extra column of zeros
+P
+```
+
+Finally, we use matrix multiplication to get the projection matrices.
+In R, matrix multiplication is indicated with the compound symbol `%*%` (if you just used `*` then it would do element-by-element multiplication, which is mathematically very different).
 ```{r}
 # Make the postbreeding census model
 Apost <- B %*% P
@@ -137,7 +154,16 @@ Apost
 Apre <- P %*% B
 Apre
 ```
+If you work through the numbers, you'll see that these match the structure of the post-breeding and pre-breeding matrices in Eq. \@ref(eq:A3-pre-post).
 
+In theory, these two matrices should have exactly the same asymptotic growth rate, $\lambda$.
+Lets use the `lambda()` function in the **popbio** package to check this:
+```{r}
+library(popbio)
+lambda(Apost)
+lambda(Apre)
+```
+Yup, they match!
 
 ## Why use this recipe?
 Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.

@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-10-16" />
+<meta name="date" content="2019-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,13 +256,14 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 <li>Add an extra row on top, with the birth rates</li>
 </ol>
 <p>If <span class="math inline">\(m=3\)</span>, this would look like:
-<span class="math display">\[\begin{equation}
+<span class="math display" id="eq:B3-age">\[\begin{equation}
 \mathbf{B} = \begin{pmatrix}
               b_1 &amp; b_2 &amp; b_3 \\
               1 &amp; 0 &amp; 0 \\
               0 &amp; 1 &amp; 0 \\
               0 &amp; 0 &amp; 1
             \end{pmatrix}
+\tag{3.1}
 \end{equation}\]</span></p>
 </div>
 <div id="construct-the-survival-matrix-mathbfp" class="section level3">
@@ -311,23 +312,27 @@ The age-specific female birth and survival rates are shown in Table <a href="age
               0 &amp; p_2 &amp; 0
             \end{pmatrix} 
 \end{aligned}
-\tag{3.1}
+\tag{3.2}
 \end{equation}\]</span></p>
 </div>
 </div>
 <div id="example" class="section level2">
 <h2><span class="header-section-number">3.2</span> Example</h2>
-<p>Let’s apply this to the snail life table in Table XXX. This model is large enough that I don’t want to calculate it by hand, so I’ll use R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.424</span>, <span class="fl">0.726</span>, <span class="fl">0.513</span>, <span class="fl">0.361</span>, <span class="fl">0.175</span>, <span class="fl">0.7</span>, <span class="fl">0.286</span>) <span class="co"># Survival </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.040</span>, <span class="fl">1.470</span>, <span class="fl">2.065</span>, <span class="fl">2.440</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>)                     <span class="co"># Births</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">m  &lt;-<span class="st"> </span><span class="dv">7</span>                                        <span class="co"># Maximum age</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># Construct the birth matrix, B</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># A useful tool: diag(m) creates an m x m matrix with ones on the diagonal</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#   and zeros everywhere else</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">B &lt;-<span class="st"> </span><span class="kw">diag</span>(m) <span class="co"># Make an m x m diagonal matrix</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, B) <span class="co"># Add an extra row on top, with the birth rates</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">B</a></code></pre></div>
+<p>Let’s apply this to the lizard life table in Table <a href="age-structured-models.html#tab:lizard-lt">3.1</a>. This model is large enough that I don’t want to calculate it by hand, so I’ll use R.
+First, enter the age-specific survival and birth rates, and the maximum age:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.424</span>, <span class="fl">0.726</span>, <span class="fl">0.513</span>, <span class="fl">0.361</span>, <span class="fl">0.175</span>, <span class="fl">0.700</span>, <span class="fl">0.286</span>) <span class="co"># Survival </span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.040</span>, <span class="fl">1.470</span>, <span class="fl">2.065</span>, <span class="fl">2.440</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>, <span class="fl">3.250</span>) <span class="co"># Births</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">m  &lt;-<span class="st"> </span><span class="dv">7</span>                                                  <span class="co"># Maximum age</span></a></code></pre></div>
+<p>Notice that the first element of <code>px</code> is <span class="math inline">\(p_0\)</span>, whereas the first element of <code>bx</code> is <span class="math inline">\(b_1\)</span>.
+Thus, <code>px</code> doesn’t have the zero surivival of 7-year-olds, and <code>bx</code> doesn’t have the zero birth rate of newborns.
+If you are working with a dataset that includes these zeros, you’ll need to trim them off before moving to the next step.</p>
+<p>Now construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span>.
+A useful function in R is <code>diag()</code>, the diagonal function.
+If <code>m</code> is a scalar (a single number), then <code>diag(m)</code> creates an <span class="math inline">\(m \times m\)</span> matrix with ones on the diagonal and zeros everywhere else.
+Also, recall that <code>rbind()</code> (“row bind”) adds the second argument below the first argument.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">B &lt;-<span class="st"> </span><span class="kw">diag</span>(m) <span class="co"># Make an m x m diagonal matrix</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, B) <span class="co"># Add an extra row on top, with the birth rates</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">B</a></code></pre></div>
 <pre><code>##    [,1] [,2]  [,3] [,4] [,5] [,6] [,7]
 ## bx 0.04 1.47 2.065 2.44 3.25 3.25 3.25
 ##    1.00 0.00 0.000 0.00 0.00 0.00 0.00
@@ -337,26 +342,16 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 ##    0.00 0.00 0.000 0.00 1.00 0.00 0.00
 ##    0.00 0.00 0.000 0.00 0.00 1.00 0.00
 ##    0.00 0.00 0.000 0.00 0.00 0.00 1.00</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Construct the survival matrix, P</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># A useful tool: diag(px) creates an m x m matrix with the values of px </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#   on the diagonal and zeros everywhere else</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">P &lt;-<span class="st"> </span><span class="kw">cbind</span>(P, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">P</a></code></pre></div>
-<pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5] [,6]  [,7] [,8]
-## [1,] 0.424 0.000 0.000 0.000 0.000  0.0 0.000    0
-## [2,] 0.000 0.726 0.000 0.000 0.000  0.0 0.000    0
-## [3,] 0.000 0.000 0.513 0.000 0.000  0.0 0.000    0
-## [4,] 0.000 0.000 0.000 0.361 0.000  0.0 0.000    0
-## [5,] 0.000 0.000 0.000 0.000 0.175  0.0 0.000    0
-## [6,] 0.000 0.000 0.000 0.000 0.000  0.7 0.000    0
-## [7,] 0.000 0.000 0.000 0.000 0.000  0.0 0.286    0</code></pre>
-<p>Notice that the rownames of the matrix B are odd; it doesn’t really matter, but if you want things to be tidier, you can use this slightly more complex command (it also does both steps at once):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bx, <span class="kw">diag</span>(m)), </a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">            <span class="dt">nrow =</span> m <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">            <span class="dt">ncol =</span> m, </a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">B</a></code></pre></div>
+<p>ALthough it’s larger, this matrix has the same structure as Eq. (<a href="age-structured-models.html#eq:B3-age">(3.1)</a>).</p>
+<p>One quirk of R is that, while the columns are labeled with the index of the columns (which is what we expect for a generic matrix), the first row is labeled “bx” and the rest of the rows are unlabeled.
+The labels don’t actually matter for the rest of the calculations, but they will result in the final matrices having uninformative row labels.
+If you don’t like this, you can reset the row labels with the command <code>rownames(B) &lt;- NULL</code>.
+Alternatively, you can use this slightly more complex command (it also does both steps at once):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bx, <span class="kw">diag</span>(m)), </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">            <span class="dt">nrow =</span> m <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">            <span class="dt">ncol =</span> m, </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">            <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">B</a></code></pre></div>
 <pre><code>##      [,1] [,2]  [,3] [,4] [,5] [,6] [,7]
 ## [1,] 0.04 1.47 2.065 2.44 3.25 3.25 3.25
 ## [2,] 1.00 0.00 0.000 0.00 0.00 0.00 0.00
@@ -366,10 +361,26 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 ## [6,] 0.00 0.00 0.000 0.00 1.00 0.00 0.00
 ## [7,] 0.00 0.00 0.000 0.00 0.00 1.00 0.00
 ## [8,] 0.00 0.00 0.000 0.00 0.00 0.00 1.00</code></pre>
-<p>Now on to the final steps:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Make the postbreeding census model</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>P</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">Apost</a></code></pre></div>
+<p>Now construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span>.
+We will again use <code>diag()</code>, but in a different way.
+If <code>px</code> is a vector with length <span class="math inline">\(m\)</span>, then <code>diag(px)</code> creates an <span class="math inline">\(m \times m\)</span> matrix with the values of <code>px</code> on the diagonal and zeros everywhere else.
+Also, recall that <code>cbind()</code> (“column bind”) adds the second argument to the right the first argument.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)     <span class="co"># Make the diagonal matrix with survival values</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">P &lt;-<span class="st"> </span><span class="kw">cbind</span>(P, <span class="dv">0</span>)  <span class="co"># Add an extra column of zeros</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">P</a></code></pre></div>
+<pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5] [,6]  [,7] [,8]
+## [1,] 0.424 0.000 0.000 0.000 0.000  0.0 0.000    0
+## [2,] 0.000 0.726 0.000 0.000 0.000  0.0 0.000    0
+## [3,] 0.000 0.000 0.513 0.000 0.000  0.0 0.000    0
+## [4,] 0.000 0.000 0.000 0.361 0.000  0.0 0.000    0
+## [5,] 0.000 0.000 0.000 0.000 0.175  0.0 0.000    0
+## [6,] 0.000 0.000 0.000 0.000 0.000  0.7 0.000    0
+## [7,] 0.000 0.000 0.000 0.000 0.000  0.0 0.286    0</code></pre>
+<p>Finally, we use matrix multiplication to get the projection matrices.
+In R, matrix multiplication is indicated with the compound symbol <code>%*%</code> (if you just used <code>*</code> then it would do element-by-element multiplication, which is mathematically very different).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Make the postbreeding census model</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>P</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">Apost</a></code></pre></div>
 <pre><code>##         [,1]    [,2]     [,3]    [,4]    [,5]  [,6]   [,7] [,8]
 ## [1,] 0.01696 1.06722 1.059345 0.88084 0.56875 2.275 0.9295    0
 ## [2,] 0.42400 0.00000 0.000000 0.00000 0.00000 0.000 0.0000    0
@@ -379,9 +390,9 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 ## [6,] 0.00000 0.00000 0.000000 0.00000 0.17500 0.000 0.0000    0
 ## [7,] 0.00000 0.00000 0.000000 0.00000 0.00000 0.700 0.0000    0
 ## [8,] 0.00000 0.00000 0.000000 0.00000 0.00000 0.000 0.2860    0</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Make the prebreeding census model</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">Apre &lt;-<span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">Apre</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Make the prebreeding census model</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">Apre &lt;-<span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">Apre</a></code></pre></div>
 <pre><code>##         [,1]    [,2]    [,3]    [,4]  [,5]  [,6]  [,7]
 ## [1,] 0.01696 0.62328 0.87556 1.03456 1.378 1.378 1.378
 ## [2,] 0.72600 0.00000 0.00000 0.00000 0.000 0.000 0.000
@@ -390,6 +401,15 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 ## [5,] 0.00000 0.00000 0.00000 0.17500 0.000 0.000 0.000
 ## [6,] 0.00000 0.00000 0.00000 0.00000 0.700 0.000 0.000
 ## [7,] 0.00000 0.00000 0.00000 0.00000 0.000 0.286 0.000</code></pre>
+<p>If you work through the numbers, you’ll see that these match the structure of the post-breeding and pre-breeding matrices in Eq. <a href="age-structured-models.html#eq:A3-pre-post">(3.2)</a>.</p>
+<p>In theory, these two matrices should have exactly the same asymptotic growth rate, <span class="math inline">\(\lambda\)</span>.
+Lets use the <code>lambda()</code> function in the <strong>popbio</strong> package to check this:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">library</span>(popbio)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">lambda</span>(Apost)</a></code></pre></div>
+<pre><code>## [1] 0.9986679</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
+<pre><code>## [1] 0.9986679</code></pre>
+<p>Yup, they match!</p>
 </div>
 <div id="why-use-this-recipe" class="section level2">
 <h2><span class="header-section-number">3.3</span> Why use this recipe?</h2>
@@ -400,7 +420,7 @@ The age-specific female birth and survival rates are shown in Table <a href="age
 <p>This book is about MPM construction, not the analysis of such models.
 Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted <span class="math inline">\(\lambda\)</span>) to changes in the age-specific birth and death rates.
 Existing tools (e.g., the <code>sensitivity()</code> function in the <strong>popbio</strong> R package) can calculate sensitivities of <span class="math inline">\(\lambda\)</span> to changes in the elements of an annual projection matrix (<span class="math inline">\(\mathbf{A_{post}}\)</span> or <span class="math inline">\(\mathbf{A_{pre}}\)</span>).
-However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. <a href="age-structured-models.html#eq:A3-pre-post">(3.1)</a>).
+However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. <a href="age-structured-models.html#eq:A3-pre-post">(3.2)</a>).
 Extracting the sensitivities of <span class="math inline">\(\lambda\)</span> to vital rates from the sensitivities of <span class="math inline">\(\lambda\)</span> to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.</p>
 <p>Instead, we can make use of established procedures for sensitivy analysis of “periodic matrix products” <span class="citation">(Caswell and Trevisan <a href="#ref-Caswell1994">1994</a>)</span>.
 The recipe is as follows:</p>
@@ -432,25 +452,25 @@ and
 </ol>
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Example</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(popbio) <span class="co"># This library includes tools for calculating lambda and matrix sensitivities</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co"># Confirm that our two A matrices give the same asymptotic growth rate</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">lambda</span>(Apost)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(popbio) <span class="co"># This library includes tools for calculating lambda and matrix sensitivities</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># Confirm that our two A matrices give the same asymptotic growth rate</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw">lambda</span>(Apost)</a></code></pre></div>
 <pre><code>## [1] 0.9986679</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
 <pre><code>## [1] 0.9986679</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Calculate the sensitivity matrices</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">Spost &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apost)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">Spre &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apre)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co"># Do the matrix multiplication to calculate the sensitivities to survival</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">Stemp1 &lt;-<span class="st"> </span><span class="kw">t</span>(B) <span class="op">%*%</span><span class="st"> </span>Spost</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="kw">diag</span>(Stemp1[, <span class="dv">1</span><span class="op">:</span>m])</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Calculate the sensitivity matrices</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">Spost &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apost)</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">Spre &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apre)</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co"># Do the matrix multiplication to calculate the sensitivities to survival</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">Stemp1 &lt;-<span class="st"> </span><span class="kw">t</span>(B) <span class="op">%*%</span><span class="st"> </span>Spost</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="kw">diag</span>(Stemp1[, <span class="dv">1</span><span class="op">:</span>m])</a></code></pre></div>
 <pre><code>## [1] 0.837520960 0.480823977 0.366397726 0.198614806 0.125950860 0.014929771
 ## [7] 0.008135051</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to birth rates</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">Stemp2 &lt;-<span class="st"> </span><span class="kw">t</span>(P) <span class="op">%*%</span><span class="st"> </span>Spre</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3">Stemp2[<span class="dv">1</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to birth rates</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">Stemp2 &lt;-<span class="st"> </span><span class="kw">t</span>(P) <span class="op">%*%</span><span class="st"> </span>Spre</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">Stemp2[<span class="dv">1</span>, ]</a></code></pre></div>
 <pre><code>## [1] 0.1507669993 0.1096028394 0.0563012534 0.0203518625 0.0035663265
 ## [6] 0.0024997584 0.0007158845</code></pre>
 
