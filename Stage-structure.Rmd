@@ -14,6 +14,7 @@ First, however, we will look at how to construct a matrix once you have all thes
 
 ## The recipe
 The stage-tructured model uses the same sort of birth and survival matrices ($\vect{B}$ and $\vect{P}$) as the age-structured model, so I encourage you to read Chapter \@ref(age-structured-models) before proceeding here.
+In addition, the construction of some of the elements will differ slightly depending on whether the newborn life stage has the potential to persist in that stage (e.g., in many plants a seed that doesn't germinate may remain a viable seed) or must mature to the next stage (as in most animals).
 
 ### Ingredients
 1. The name of the newborn stage (e.g., neonate, egg, seed) and a list of the $l$ subsequent developmental stages to include in the model.
@@ -31,3 +32,154 @@ Newborns cannot reproduce, so there is no value of $b_0$.
 We will call this list the vector $\vect{g}$, with elements $g_i$ being the the fraction of surviving individuals in stage $i$ maturing to stage $i+1$.
 The remaining fraction ($1-g_i$) stays in stage $i$.
 The maturation rate is conditioned on survival, so the fraction of individuals in stage $i$ in one year that are alive and in stage $i+1$ the next year would be $p_i g_i$.
+Notice that the final stage has nowhere to mature to, so $g_l = 0$.
+
+### Construct the birth matrix, $\vect{B}$
+#### Non-persistent newborn stage
+If all newborns mature to the next developmental stage by their first birthday, then this is identical to the recipe for age-structured models:
+
+1. Make an $l \times l$ identity matrix (with ones on the diagonal, and zeros everywhere else)
+2. Add an extra row on top, with the birth rates
+
+If $l=3$, this would look like:
+\begin{equation}
+\vect{B} = \begin{pmatrix}
+              b_1 & b_2 & b_3 \\
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{pmatrix}
+(\#eq:B3-stage-a)
+\end{equation}
+
+#### Persistent newborn stage
+If same newborns may remain in the same stage by their first birthday (e.g., seeds with a seed bank), then the recipe is slightly different:
+
+1. Make an $(l+1) \times (l+1)$ identity matrix (with ones on the diagonal, and zeros everywhere else)
+2. Replace the zeros on the top row with the birth rates
+
+If $l=3$, this would look like:
+\begin{equation}
+\vect{B} = \begin{pmatrix}
+              1 & b_1 & b_2 & b_3 \\
+              0 & 1 & 0 & 0 \\
+              0 & 0 & 1 & 0 \\
+              0 & 0 & 0 & 1
+            \end{pmatrix}
+(\#eq:B3-stage-b)
+\end{equation}
+
+### Construct the survival matrix, $\vect{P}$
+The recipe is the same for both persistent and non-persistent newborn stages.
+It is slightly different (and simpler) than the age-structured case:
+
+1. Make an $(l+1) \times (l+1)$ matrix with the survival values on the diagonal, and zeros everywhere else
+
+If $l=3$, this would look like:
+\begin{equation}
+\vect{P} = \begin{pmatrix}
+              p_0 & 0 & 0 & 0 \\
+              0 & p_1 & 0 & 0 \\
+              0 & 0 & p_2 & 0 \\
+              0 & 0 & 0 & p_3
+            \end{pmatrix}
+\end{equation}
+
+### Construct the developmental transition matrix, $\vect{T}$
+1. Make an $(l+1) \times (l+1)$ matrix with the matureation rates subtracted from one on the diagonal, and zeros everywhere else
+2. Add the first $l$ maturation rates ($g_0$ through $g_{l-1}$) just below the diagonal
+
+If $l=3$, this would look like:
+\begin{equation}
+\vect{T} = \begin{pmatrix}
+              1-g_0 & 0 & 0 & 0 \\
+              g_0 & 1-g_1 & 0 & 0 \\
+              0 & g_1 & 1-g_2 & 0 \\
+              0 & 0 & g_2 & 1-g_3
+            \end{pmatrix}
+\end{equation}
+
+#### Non-persistent newborn stage
+If all newborns mature to the next developmental stage by their first birthday, so that $g_0 = 1$ and the first row of $\vect{T}$ consists only of zeros, then 
+
+3. Drop the top row.
+
+### Combine the birth, survival, and transition matrices into the projection matrix
+You have two choices here: 
+
+* the *postbreeding census model* (which we denote $\vect{A_{post}}$), which takes the population immediately after the breeding season in one yeqr (including the newborns) and projects it to immediately after the breeding season the next year;  
+* the *prebreeding census model* (which we denote $\vect{A_{pre}}$), which takes the population immediately before the breeding season in one yeqr (so that the youngest individuals are just about to reach their first birthday) and projects it to immediately before the breeding season the next year.
+
+Both versions model the same population; the only difference is when you peek in to see the population abundances. Here are the formulas:
+
+
+\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &= \vect{B} \vect{T} \vect{P}\\
+\vect{A_{pre}} &= \vect{T} \vect{P} \vect{B}
+\end{aligned}
+\end{equation}
+
+The formulas look similar, differing only in the order of multiplication. But remember that matrix multiplication is not commutative! 
+However, the term $\vect{TP}$ appears in both, and can be pre-calculated.
+
+For the $l=3$ case and a non-persistent newborn stage, these work out to:
+\begin{equation}
+\vect{TP} = \begin{pmatrix}
+              p_0 & p_1(1-g_1) & 0 & 0 \\
+              0 & p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & 0 & p_2 g_2 & p_3
+            \end{pmatrix}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &= \begin{pmatrix}
+              p_0 b_1 & p_1 (1-g_1) b_1 + p_1 g_1 b_2 & p_2 (1-g_2) b_2 + p_2 g_2 b_3 & p_3 b_3\\
+              p_0 & p_1 (1-g_1) & 0 & 0 \\
+              0 & p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & 0 & p_2 g_2 & p_3
+            \end{pmatrix} \\
+\vect{A_{pre}} &= \begin{pmatrix}
+              b_1 p_0 + p_1(1-g_1) & b_2 p_0 & b_3 p_0 \\
+              p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & p_2 g_2 & p_3
+            \end{pmatrix} 
+\end{aligned}
+(\#eq:SS3-pre-post)
+\end{equation}
+
+For the persistent newborn stage these are:
+\begin{equation}
+\vect{TP} = \begin{pmatrix}
+              p_0 (1-g_0) & 0 & 0 & 0 \\
+              p_0 g_0 & p_1(1-g_1) & 0 & 0 \\
+              0 & p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & 0 & p_2 g_2 & p_3
+            \end{pmatrix}
+\end{equation}
+\begin{equation}
+\vect{A_{post}} = \begin{pmatrix}
+              p_0 (1-g_0) + p_0 g_0 b_1 & p_1 (1-g_1) b_1 + p_1 g_1 b_2 & p_2 (1-g_2) b_2 + p_2 g_2 b_3 & p_3 b_3\\
+              p_0 g_0 & p_1 (1-g_1) & 0 & 0 \\
+              0 & p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & 0 & p_2 g_2 & p_3
+            \end{pmatrix} \\
+(\#eq:SS3-post-a)
+\end{equation}
+\begin{equation}
+\vect{A_{pre}} = \begin{pmatrix}
+              p_0 (1-g_0) & b_1 p_0 (1-g_0)  & b_2 p_0 (1-g_0) & b_3 p_0 (1-g_0) \\
+              p_0 g_0 & b_1 p_0 g_0 + p_1(1-g_1) & b_2 p_0 g_0 & b_3 p_0 g_0 \\
+              0 & p_1 g_1 & p_2 (1-g_2) & 0 \\
+              0 & 0 & p_2 g_2 & p_3
+            \end{pmatrix} 
+(\#eq:SS3-pre-a)
+\end{equation}
+
+The bookkeeping embodied in the the elements of $\vect{A_{pre}}$ and $\vect{A_{post}}$ is getting truly heroic.
+This will become even worse if transitions are not limited simply to the current stage and the subsequent stage.
+A standard textbook would urge you to calaculate these elements directly, being very careful to keep track of all the pathways and the steps along each pathway.
+This path leads to madness.
+Even expert modelers, for whom the components of the projection matrix elements seem "intuitive," can lose track and put parameter values in the wrong place.
+It is far simpler, conceptually and operationally, to plug values into $\vect{B}$, $\vect{P}$, and $\vect{T}$, and do matrix multiplication on the numeric matrices.
+Or even better, have the computer do it for you!

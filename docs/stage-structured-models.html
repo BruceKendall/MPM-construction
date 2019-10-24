@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-10-22" />
+<meta name="date" content="2019-10-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,68 +49,6 @@
 
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -135,8 +73,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
 <li class="chapter" data-level="3.1" data-path="age-structured-models.html"><a href="age-structured-models.html#the-recipe"><i class="fa fa-check"></i><b>3.1</b> The recipe</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="age-structured-models.html"><a href="age-structured-models.html#ingredients"><i class="fa fa-check"></i><b>3.1.1</b> Ingredients</a></li>
-<li class="chapter" data-level="3.1.2" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-birth-matrix-mathbfb"><i class="fa fa-check"></i><b>3.1.2</b> Construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span></a></li>
-<li class="chapter" data-level="3.1.3" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-survival-matrix-mathbfp"><i class="fa fa-check"></i><b>3.1.3</b> Construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-birth-matrix-vectb"><i class="fa fa-check"></i><b>3.1.2</b> Construct the birth matrix, <span class="math inline">\(\vect{B}\)</span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-survival-matrix-vectp"><i class="fa fa-check"></i><b>3.1.3</b> Construct the survival matrix, <span class="math inline">\(\vect{P}\)</span></a></li>
 <li class="chapter" data-level="3.1.4" data-path="age-structured-models.html"><a href="age-structured-models.html#combine-the-birth-and-survival-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Combine the birth and survival matrices into the projection matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="age-structured-models.html"><a href="age-structured-models.html#example"><i class="fa fa-check"></i><b>3.2</b> Example</a></li>
@@ -145,7 +83,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.1" data-path="age-structured-models.html"><a href="age-structured-models.html#example-1"><i class="fa fa-check"></i><b>3.4.1</b> Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a></li>
+<li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#the-recipe-1"><i class="fa fa-check"></i><b>4.1</b> The recipe</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#ingredients-1"><i class="fa fa-check"></i><b>4.1.1</b> Ingredients</a></li>
+<li class="chapter" data-level="4.1.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-birth-matrix-vectb-1"><i class="fa fa-check"></i><b>4.1.2</b> Construct the birth matrix, <span class="math inline">\(\vect{B}\)</span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-survival-matrix-vectp-1"><i class="fa fa-check"></i><b>4.1.3</b> Construct the survival matrix, <span class="math inline">\(\vect{P}\)</span></a></li>
+<li class="chapter" data-level="4.1.4" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-developmental-transition-matrix-vectt"><i class="fa fa-check"></i><b>4.1.4</b> Construct the developmental transition matrix, <span class="math inline">\(\vect{T}\)</span></a></li>
+<li class="chapter" data-level="4.1.5" data-path="stage-structured-models.html"><a href="stage-structured-models.html#combine-the-birth-survival-and-transition-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>4.1.5</b> Combine the birth, survival, and transition matrices into the projection matrix</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -170,7 +116,197 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="stage-structured-models" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Stage-Structured Models</h1>
+<p>We now turn to models of populations in which developmental stage is a stronger determinant of demography than is age or size.
+In the classical formulation, known as <em>Lefkovitch matrices</em>, an individual, if it survives, may either stay in its current stage or move to the next stage.
+This creates a characteristic matrix shape in which the non-zero values comprise fertility coefficients across the top row, diagonal elements representing surviving and staying in the next stage, and sub-diagonal elements representing survival and maturation to the next stage (Fig. XXX).</p>
+<p>To construct such models, we need to know how demography depends on stage: for each stage <span class="math inline">\(i\)</span>, what is the birth rate (<span class="math inline">\(b_i\)</span>) and survival rate (<span class="math inline">\(p_i\)</span>)?
+In addition, we need to know, of the individuals starting in stage <span class="math inline">\(i\)</span> that survive for a year, what fraction mature to stage <span class="math inline">\(i+1\)</span> by the end of the year?
+We will call this value <span class="math inline">\(g_i\)</span>, and name it the “maturation rate” (many texts and articles call this “growth,” but I reserve that term for talking about increases in size).</p>
+<p>Estimating the maturation rates properly is a somewhat subtle process, depending both on the biology of how individuals move through the developmental stages and on how the model will be used.
+We will look at that in a later section of this chapter.
+First, however, we will look at how to construct a matrix once you have all these values.</p>
+<div id="the-recipe-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> The recipe</h2>
+<p>The stage-tructured model uses the same sort of birth and survival matrices (<span class="math inline">\(\vect{B}\)</span> and <span class="math inline">\(\vect{P}\)</span>) as the age-structured model, so I encourage you to read Chapter <a href="age-structured-models.html#age-structured-models">3</a> before proceeding here.
+In addition, the construction of some of the elements will differ slightly depending on whether the newborn life stage has the potential to persist in that stage (e.g., in many plants a seed that doesn’t germinate may remain a viable seed) or must mature to the next stage (as in most animals).</p>
+<div id="ingredients-1" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Ingredients</h3>
+<ol style="list-style-type: decimal">
+<li>The name of the newborn stage (e.g., neonate, egg, seed) and a list of the <span class="math inline">\(l\)</span> subsequent developmental stages to include in the model.
+This may be a subset of the actual developmental stages, if the species passes through multiple stages in a timestep (which is set by the breeding interval, and is typically one year).
+For example, if a newborn fish starts as an egg and passes through the stages larva, swimming juvenile, settled juvenile in its first year, the first two stages in the model would be egg and settled juvenile, and the the survival and maturation rates would relate to survival from egg all the way to settled juvenile.
+We will index the stages with <span class="math inline">\(i\)</span>.</li>
+<li>A list of annual survival rates (the fraction of individuals that survive for a year), one for each stage.
+Ideally, this will be survival from one birthay to the next (including from birth to the first birthday).
+If males and females have different survival rates, list the female values.
+We will call this list the vector <span class="math inline">\(\vect{p}\)</span>, with elements <span class="math inline">\(p_i\)</span> being the annual survival rate (fraction of individuals surviving, regardles of which stage they end up in) of individuals that start in stage <span class="math inline">\(i\)</span>.</li>
+<li>A list of stage-specific birth rates: For each parental stage, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent.
+We will call this list the vector <span class="math inline">\(\vect{b}\)</span>, with elements <span class="math inline">\(b_i\)</span> being the number of offspring produced by a parent in stage <span class="math inline">\(i\)</span>.
+Newborns cannot reproduce, so there is no value of <span class="math inline">\(b_0\)</span>.</li>
+<li>A list of maturation rates (the fraction of surviving individuals in a stage that mature to the next stage), one for each stage.
+We will call this list the vector <span class="math inline">\(\vect{g}\)</span>, with elements <span class="math inline">\(g_i\)</span> being the the fraction of surviving individuals in stage <span class="math inline">\(i\)</span> maturing to stage <span class="math inline">\(i+1\)</span>.
+The remaining fraction (<span class="math inline">\(1-g_i\)</span>) stays in stage <span class="math inline">\(i\)</span>.
+The maturation rate is conditioned on survival, so the fraction of individuals in stage <span class="math inline">\(i\)</span> in one year that are alive and in stage <span class="math inline">\(i+1\)</span> the next year would be <span class="math inline">\(p_i g_i\)</span>.
+Notice that the final stage has nowhere to mature to, so <span class="math inline">\(g_l = 0\)</span>.</li>
+</ol>
+</div>
+<div id="construct-the-birth-matrix-vectb-1" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Construct the birth matrix, <span class="math inline">\(\vect{B}\)</span></h3>
+<div id="non-persistent-newborn-stage" class="section level4">
+<h4><span class="header-section-number">4.1.2.1</span> Non-persistent newborn stage</h4>
+<p>If all newborns mature to the next developmental stage by their first birthday, then this is identical to the recipe for age-structured models:</p>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\(l \times l\)</span> identity matrix (with ones on the diagonal, and zeros everywhere else)</li>
+<li>Add an extra row on top, with the birth rates</li>
+</ol>
+<p>If <span class="math inline">\(l=3\)</span>, this would look like:
+<span class="math display" id="eq:B3-stage-a">\[\begin{equation}
+\vect{B} = \begin{pmatrix}
+              b_1 &amp; b_2 &amp; b_3 \\
+              1 &amp; 0 &amp; 0 \\
+              0 &amp; 1 &amp; 0 \\
+              0 &amp; 0 &amp; 1
+            \end{pmatrix}
+\tag{4.1}
+\end{equation}\]</span></p>
+</div>
+<div id="persistent-newborn-stage" class="section level4">
+<h4><span class="header-section-number">4.1.2.2</span> Persistent newborn stage</h4>
+<p>If same newborns may remain in the same stage by their first birthday (e.g., seeds with a seed bank), then the recipe is slightly different:</p>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\((l+1) \times (l+1)\)</span> identity matrix (with ones on the diagonal, and zeros everywhere else)</li>
+<li>Replace the zeros on the top row with the birth rates</li>
+</ol>
+<p>If <span class="math inline">\(l=3\)</span>, this would look like:
+<span class="math display" id="eq:B3-stage-b">\[\begin{equation}
+\vect{B} = \begin{pmatrix}
+              1 &amp; b_1 &amp; b_2 &amp; b_3 \\
+              0 &amp; 1 &amp; 0 &amp; 0 \\
+              0 &amp; 0 &amp; 1 &amp; 0 \\
+              0 &amp; 0 &amp; 0 &amp; 1
+            \end{pmatrix}
+\tag{4.2}
+\end{equation}\]</span></p>
+</div>
+</div>
+<div id="construct-the-survival-matrix-vectp-1" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Construct the survival matrix, <span class="math inline">\(\vect{P}\)</span></h3>
+<p>The recipe is the same for both persistent and non-persistent newborn stages.
+It is slightly different (and simpler) than the age-structured case:</p>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\((l+1) \times (l+1)\)</span> matrix with the survival values on the diagonal, and zeros everywhere else</li>
+</ol>
+<p>If <span class="math inline">\(l=3\)</span>, this would look like:
+<span class="math display">\[\begin{equation}
+\vect{P} = \begin{pmatrix}
+              p_0 &amp; 0 &amp; 0 &amp; 0 \\
+              0 &amp; p_1 &amp; 0 &amp; 0 \\
+              0 &amp; 0 &amp; p_2 &amp; 0 \\
+              0 &amp; 0 &amp; 0 &amp; p_3
+            \end{pmatrix}
+\end{equation}\]</span></p>
+</div>
+<div id="construct-the-developmental-transition-matrix-vectt" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Construct the developmental transition matrix, <span class="math inline">\(\vect{T}\)</span></h3>
+<ol style="list-style-type: decimal">
+<li>Make an <span class="math inline">\((l+1) \times (l+1)\)</span> matrix with the matureation rates subtracted from one on the diagonal, and zeros everywhere else</li>
+<li>Add the first <span class="math inline">\(l\)</span> maturation rates (<span class="math inline">\(g_0\)</span> through <span class="math inline">\(g_{l-1}\)</span>) just below the diagonal</li>
+</ol>
+<p>If <span class="math inline">\(l=3\)</span>, this would look like:
+<span class="math display">\[\begin{equation}
+\vect{T} = \begin{pmatrix}
+              1-g_0 &amp; 0 &amp; 0 &amp; 0 \\
+              g_0 &amp; 1-g_1 &amp; 0 &amp; 0 \\
+              0 &amp; g_1 &amp; 1-g_2 &amp; 0 \\
+              0 &amp; 0 &amp; g_2 &amp; 1-g_3
+            \end{pmatrix}
+\end{equation}\]</span></p>
+<div id="non-persistent-newborn-stage-1" class="section level4">
+<h4><span class="header-section-number">4.1.4.1</span> Non-persistent newborn stage</h4>
+<p>If all newborns mature to the next developmental stage by their first birthday, so that <span class="math inline">\(g_0 = 1\)</span> and the first row of <span class="math inline">\(\vect{T}\)</span> consists only of zeros, then</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Drop the top row.</li>
+</ol>
+</div>
+</div>
+<div id="combine-the-birth-survival-and-transition-matrices-into-the-projection-matrix" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Combine the birth, survival, and transition matrices into the projection matrix</h3>
+<p>You have two choices here:</p>
+<ul>
+<li>the <em>postbreeding census model</em> (which we denote <span class="math inline">\(\vect{A_{post}}\)</span>), which takes the population immediately after the breeding season in one yeqr (including the newborns) and projects it to immediately after the breeding season the next year;<br />
+</li>
+<li>the <em>prebreeding census model</em> (which we denote <span class="math inline">\(\vect{A_{pre}}\)</span>), which takes the population immediately before the breeding season in one yeqr (so that the youngest individuals are just about to reach their first birthday) and projects it to immediately before the breeding season the next year.</li>
+</ul>
+<p>Both versions model the same population; the only difference is when you peek in to see the population abundances. Here are the formulas:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &amp;= \vect{B} \vect{T} \vect{P}\\
+\vect{A_{pre}} &amp;= \vect{T} \vect{P} \vect{B}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>The formulas look similar, differing only in the order of multiplication. But remember that matrix multiplication is not commutative!
+However, the term <span class="math inline">\(\vect{TP}\)</span> appears in both, and can be pre-calculated.</p>
+<p>For the <span class="math inline">\(l=3\)</span> case and a non-persistent newborn stage, these work out to:
+<span class="math display">\[\begin{equation}
+\vect{TP} = \begin{pmatrix}
+              p_0 &amp; p_1(1-g_1) &amp; 0 &amp; 0 \\
+              0 &amp; p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; 0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix}
+\end{equation}\]</span>
+<span class="math display" id="eq:SS3-pre-post">\[\begin{equation}
+\begin{aligned}
+\vect{A_{post}} &amp;= \begin{pmatrix}
+              p_0 b_1 &amp; p_1 (1-g_1) b_1 + p_1 g_1 b_2 &amp; p_2 (1-g_2) b_2 + p_2 g_2 b_3 &amp; p_3 b_3\\
+              p_0 &amp; p_1 (1-g_1) &amp; 0 &amp; 0 \\
+              0 &amp; p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; 0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix} \\
+\vect{A_{pre}} &amp;= \begin{pmatrix}
+              b_1 p_0 + p_1(1-g_1) &amp; b_2 p_0 &amp; b_3 p_0 \\
+              p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix} 
+\end{aligned}
+\tag{4.3}
+\end{equation}\]</span></p>
+<p>For the persistent newborn stage these are:
+<span class="math display">\[\begin{equation}
+\vect{TP} = \begin{pmatrix}
+              p_0 (1-g_0) &amp; 0 &amp; 0 &amp; 0 \\
+              p_0 g_0 &amp; p_1(1-g_1) &amp; 0 &amp; 0 \\
+              0 &amp; p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; 0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix}
+\end{equation}\]</span>
+<span class="math display" id="eq:SS3-post-a">\[\begin{equation}
+\vect{A_{post}} = \begin{pmatrix}
+              p_0 (1-g_0) + p_0 g_0 b_1 &amp; p_1 (1-g_1) b_1 + p_1 g_1 b_2 &amp; p_2 (1-g_2) b_2 + p_2 g_2 b_3 &amp; p_3 b_3\\
+              p_0 g_0 &amp; p_1 (1-g_1) &amp; 0 &amp; 0 \\
+              0 &amp; p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; 0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix} \\
+\tag{4.4}
+\end{equation}\]</span>
+<span class="math display" id="eq:SS3-pre-a">\[\begin{equation}
+\vect{A_{pre}} = \begin{pmatrix}
+              p_0 (1-g_0) &amp; b_1 p_0 (1-g_0)  &amp; b_2 p_0 (1-g_0) &amp; b_3 p_0 (1-g_0) \\
+              p_0 g_0 &amp; b_1 p_0 g_0 + p_1(1-g_1) &amp; b_2 p_0 g_0 &amp; b_3 p_0 g_0 \\
+              0 &amp; p_1 g_1 &amp; p_2 (1-g_2) &amp; 0 \\
+              0 &amp; 0 &amp; p_2 g_2 &amp; p_3
+            \end{pmatrix} 
+\tag{4.5}
+\end{equation}\]</span></p>
+<p>The bookkeeping embodied in the the elements of <span class="math inline">\(\vect{A_{pre}}\)</span> and <span class="math inline">\(\vect{A_{post}}\)</span> is getting truly heroic.
+This will become even worse if transitions are not limited simply to the current stage and the subsequent stage.
+A standard textbook would urge you to calaculate these elements directly, being very careful to keep track of all the pathways and the steps along each pathway.
+This path leads to madness.
+Even expert modelers, for whom the components of the projection matrix elements seem “intuitive,” can lose track and put parameter values in the wrong place.
+It is far simpler, conceptually and operationally, to plug values into <span class="math inline">\(\vect{B}\)</span>, <span class="math inline">\(\vect{P}\)</span>, and <span class="math inline">\(\vect{T}\)</span>, and do matrix multiplication on the numeric matrices.
+Or even better, have the computer do it for you!</p>
 
+</div>
+</div>
 </div>
             </section>
 
