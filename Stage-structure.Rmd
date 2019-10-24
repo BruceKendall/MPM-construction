@@ -183,3 +183,24 @@ This path leads to madness.
 Even expert modelers, for whom the components of the projection matrix elements seem "intuitive," can lose track and put parameter values in the wrong place.
 It is far simpler, conceptually and operationally, to plug values into $\vect{B}$, $\vect{P}$, and $\vect{T}$, and do matrix multiplication on the numeric matrices.
 Or even better, have the computer do it for you!
+
+## Example
+To illustrate these calculations, we use data on the frog *Rana aurora* from Table 1 of @Biek2002. There are seven stages (eggs, embryos, larae, metamorphs, juveniles and adults), but the first four are completed in the course of the animal's first year, so for the model we focus only on eggs, juveniles, and adults.
+
+```{r}
+bx <- c(0, 303)
+px <- c(0.92 * 0.03 * 0.55, 0.36, 0.69)
+gx <- c(1, 0.09/0.36, 0)
+
+l <- 2
+
+B <- rbind(bx, diag(l))
+P <- diag(px)
+T <- diag(1-gx)
+T[2,1] <- gx[1]
+T[3,2] <- gx[2]
+T <- T[-1, ]
+
+Apre <- T %*% P %*% B
+Apost <- B %*% T %*% P
+```
