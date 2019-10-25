@@ -200,8 +200,21 @@ However, it would be possible to extend the breeding season component of the mod
 I will explore this in a subsequent chapter.
 
 ### Dependent offspring
+Another potentially important feature of many animals' life history is an extended period when offpring are dependent on their parents for food and protection.
+In such a situation, the death of the parent may lead to reduced (or zero) survival for the offspring.
+The standard age-structured MPM, as we have developed above, does not account for this.
+If the dependence lasts for a full year (or more), this can be addressed by creating a special class for "mothers with offspring," as was done by @Fujiwara2001 in their model for the North Atlantic right whale.
+For shorter perdiods of parental care, we could create a post-birth "dependency season" during which the fates of parents and offspring are correlated.
+
+A related issue arises with extended gestation periods, creating a pre-birth dependency season.
+Furthermore, if pregnancy affects maternal survival, we could explicitly distinguish pregnant and non-pregnant females during that season, allowing the model to incorporate tradeoffs between survival and reproduction.
+
+I will address these issues in a subsequent chapter.
 
 ### Individual heterogeneity
+Finally, the model assumes that all individuals of a given age have the same birth and death rates.
+Violation of this assumption creates "unmodelled heterogeneity," and might affect the predictions of your model, depending on the nature of the heterogeneity and the way you are using the model.
+Both the identification of such heterogeneity and the consequences are ongoing areas of research; I won't provide a general treatment in this book, but will touch on it in certain points where it commonly arises.
 
 ## Sensitivity analyses
 This book is about MPM construction, not the analysis of such models. 
