@@ -181,6 +181,12 @@ The only modification to the recipe above is to put the value of $p_{m+}$ into t
 All else proceeds as above.
 
 ### Post-reproductive ages
+In many animal species, individuals may survive beyond their maximum age of reproduction.
+These post-reproductive age classes have birth rates of zero, and the resulting projection matrix may be problematic for certain sorts of analyses.
+There is no problem with using the matrix to numerically simulate the age-structured population through time.
+However, analyses that require calculating the eigenvalues and eigenvectors of the matrix, such as the asymptotic population growth rate, $\lambda$, and the sensitivity of $\lambda$ to matrix elements, might generate mysterious errors (depending on the software being used).
+If this occurs, you can simply delete the rows and columns of the projection matrix that are associated with the post-reproductive ages, and re-do the analysis.
+Because population growth is unaffected (at least in simple density-independent models such as these) by the survival of post-reproductive ages, you can set those sensitivity values to zero after analyzing the remainder of the matrix.
 
 ### Extended breeding season
 
