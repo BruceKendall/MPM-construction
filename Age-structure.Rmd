@@ -168,7 +168,7 @@ Yup, they match!
 ## Why use this recipe?
 Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.
 
-## Extensions and caveats
+## Extensions, caveats, and assumptions
 ### No maximum age
 The recipe and example above describes a classic Leslie matrix model, in which there is a well-defined maximum age at which all individuals die.
 In many species, however, individuals may survive more-or-less indefinitely; above a certain age, it might be biologically reasonable to assume that all indiviudals have the same birth and survival rates, independent of age.
@@ -189,6 +189,15 @@ If this occurs, you can simply delete the rows and columns of the projection mat
 Because population growth is unaffected (at least in simple density-independent models such as these) by the survival of post-reproductive ages, you can set those sensitivity values to zero after analyzing the remainder of the matrix.
 
 ### Extended breeding season
+In describing the recipe above, I have made some potentially troubling assumptions.
+To be clear, these assumptions are embedded in the "standard" approach to constructing MPMs; the use of seasonal matrices merely makes them more apparent.
+
+The first such assumption is that the breeding season is "instantaneous," such that there is no mortality during the season and all individuals in a cohort are exactly the same age.
+This is the standard assumption in the "birth-pulse" models that we are describing here.
+If reproduction occurs continuously throughout the year, without seasonal variation, then there is a "birth-flow" formalism that approximates this.
+I don't treat that here, as truly aseasonal reproduction is vanishingly rare in the wild, and in the literature I have only seen birth-flow models applied to human and laboratory populations.
+However, it would be possible to extend the breeding season component of the model to extend to a finite duration, during which both parents and offspring might die, and in which first-year survival of offspring might depend on when in the breeding season they were born.
+I will explore this in a subsequent chapter.
 
 ### Dependent offspring
 
