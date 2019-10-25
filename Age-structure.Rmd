@@ -168,6 +168,26 @@ Yup, they match!
 ## Why use this recipe?
 Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.
 
+## Extensions and caveats
+### No maximum age
+The recipe and example above describes a classic Leslie matrix model, in which there is a well-defined maximum age at which all individuals die.
+In many species, however, individuals may survive more-or-less indefinitely; above a certain age, it might be biologically reasonable to assume that all indiviudals have the same birth and survival rates, independent of age.
+Even if there is not strong evidence to support that assumption, there may be so few old individuals in the population that it is impossible to estimate separate demographic rates for each age class.
+In this case, we can augment the Leslie model by adding an "old individual" stage; while this technically becomes a stage-structured model, it is such a common modification to age structured models that we include it here.
+
+Now, instead of $m$ being the maximum age, we can write $m+$ to represent the class of individuals age $m$ and above. 
+They have a non-zero survival, so the vector of survival values now has $m+1$ values ($p_0, p_1, \dots, p_{m-1}, p_{m+}$).
+The only modification to the recipe above is to put the value of $p_{m+}$ into the bottom-right element of the $\vect{P}$ matrix.
+All else proceeds as above.
+
+### Post-reproductive ages
+
+### Extended breeding season
+
+### Dependent offspring
+
+### Individual heterogeneity
+
 ## Sensitivity analyses
 This book is about MPM construction, not the analysis of such models. 
 Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted $\lambda$) to changes in the age-specific birth and death rates. 
