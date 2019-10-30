@@ -21,7 +21,11 @@ This growth can be attribued to two factors.
 First, more studies are collecting complete demographic information, either as an end in itself or as a side effect of other study objectives (e.g., evolutionary ecology studies that track fitness components throughout the lives of individuals and relatedness among individuals generate great demographic data).
 Second, MPMs have been promoted (primarily by modellers) as an "easy" way to integrate demographic demographic information and draw novel conclusions from them.
 
-Getting MPMs just right can be tricky if one is not used to "thinking like a modeller."
+Initially, most "empirical MPMs" (models of actual populations, as opposed to theoretical constructs) were created by collaborations between field biologists (who provided the data) and modellers (who took care of the mathematical details).
+Subsequently, MPMs came to be viewed as DIY (do it yourself) models that any trained ecologist or conservation biologist could do, and many MPMs are now published without the assistance of an expert modeller.
+It is true that the *conceptual* mapping of demographic and life history information to a projection matrix is (usually) straightforward.
+But there are bookkeeping details (that affect the *quantititative* mapping) that are not biologically intuitive, and may be actively counter-intuitive.
+When following the textbook approaches to MPM construction, getting these bookkeeping details just right can be tricky if one is not used to "thinking like a modeller."
 
 Lots of published MPMs have errors (Kendall et al. 2019)
 
