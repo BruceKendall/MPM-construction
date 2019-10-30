@@ -15,15 +15,17 @@ link-citations: yes
 # Preface {-}
 
 
-Matrix population models are powerful tools for quantitatively integrating demographic and life history information to address ecological questions as well as prioritizing management for rare, harvested, or invasive species. 
-
-The growth of empirical MPMs
+Matrix population models are powerful tools for quantitatively integrating demographic (births and deaths) and life history (aging, growth and development) information to address ecological questions as well as prioritizing management for rare, harvested, or invasive species. 
+Over the past three decades, the number of animal and plant MPMs described and analyzed in the peer-reviewed literature has grown faster than linearly.
+This growth can be attribued to two factors.
+First, more studies are collecting complete demographic information, either as an end in itself or as a side effect of other study objectives (e.g., evolutionary ecology studies that track fitness components throughout the lives of individuals and relatedness among individuals generate great demographic data).
+Second, MPMs have been promoted (primarily by modellers) as an "easy" way to integrate demographic demographic information and draw novel conclusions from them.
 
 Getting MPMs just right can be tricky if one is not used to "thinking like a modeller."
 
 Lots of published MPMs have errors (Kendall et al. 2019)
 
-The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it statistically, but you are not well-versed in constructing and analyzing mathematical models.
+The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it using *statistical* models, but you are not well-versed in constructing and analyzing *mathematical* models.
 
 The first goal of this book is to provide a gentle tutorial, and introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
 
