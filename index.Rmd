@@ -17,8 +17,8 @@ link-citations: yes
 
 Matrix population models are powerful tools for quantitatively integrating demographic (births and deaths) and life history (aging, growth and development) information to address ecological questions as well as prioritizing management for rare, harvested, or invasive species. 
 Over the past three decades, the number of animal and plant MPMs described and analyzed in the peer-reviewed literature has grown faster than linearly.
-This growth can be attribued to two factors.
-First, more studies are collecting complete demographic information, either as an end in itself or as a side effect of other study objectives (e.g., evolutionary ecology studies that track fitness components throughout the lives of individuals and relatedness among individuals generate great demographic data).
+This growth can be attributed to two factors.
+First, more studies are collecting complete demographic information on a population, either as an end in itself or as a side effect of other study objectives (e.g., evolutionary ecology studies that track fitness components throughout the lives of individuals and relatedness among individuals generate great demographic data).
 Second, MPMs have been promoted (primarily by modellers) as an "easy" way to integrate demographic demographic information and draw novel conclusions from them.
 
 Initially, most "empirical MPMs" (models of actual populations, as opposed to theoretical constructs) were created by collaborations between field biologists (who provided the data) and modellers (who took care of the mathematical details).
