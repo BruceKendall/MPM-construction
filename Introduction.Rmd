@@ -1,7 +1,13 @@
 # Introduction {#intro}
 
-- MPMs: what they are and how they can be used
-- Growth in MPM use
-- Common pitfalls in MPM construction
-- Nomenclature
-- Software
+## What are matrix population models?
+
+## What are matrix population models used for?
+
+## A brief history of matrix population models
+
+## Common pitfalls in matrix population model construction
+
+## Mathematical essentials
+
+## Matrix population models in R
