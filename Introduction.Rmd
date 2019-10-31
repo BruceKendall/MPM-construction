@@ -26,6 +26,9 @@ As we will see, MPMs can be constructed in different ways that either do or do n
 In that case, careful attention to context is required to know what $n_1(t)$ (the first element of $\vect{n}(t)$) refers to.
 In contrast, $n_{(0)}(t)$ vs. $n_{(1)}(t)$, or $n_{(\text{newborn})}(t)$ vs. $n_{(\text{juvenile})}(t)$, is clear and unambiguous.
 
+Transition notation
+
+Matrix multiplication
 
 ## Matrix population models in R
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-10-30" />
+<meta name="date" content="2019-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,7 +129,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models"><i class="fa fa-check"></i><b>1.1</b> What are matrix population models?</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models-used-for"><i class="fa fa-check"></i><b>1.2</b> What are matrix population models used for?</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-brief-history-of-matrix-population-models"><i class="fa fa-check"></i><b>1.3</b> A brief history of matrix population models</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#common-pitfalls-in-matrix-population-model-construction"><i class="fa fa-check"></i><b>1.4</b> Common pitfalls in matrix population model construction</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#mathematical-essentials"><i class="fa fa-check"></i><b>1.5</b> Mathematical essentials</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#matrix-population-models-in-r"><i class="fa fa-check"></i><b>1.6</b> Matrix population models in R</a></li>
+</ul></li>
 <li class="part"><span><b>I Simple Matrix Population Models</b></span></li>
 <li class="chapter" data-level="2" data-path="general-considerations.html"><a href="general-considerations.html"><i class="fa fa-check"></i><b>2</b> General Considerations</a></li>
 <li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
@@ -187,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Reliable Construction of Matrix Population Models from Demographic Information</h1>
 <p class="author"><em>Bruce E. Kendall</em></p>
-<p class="date"><em>2019-10-30</em></p>
+<p class="date"><em>2019-10-31</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -209,10 +216,11 @@ One year, every one of the models selected by the students had mistakes!<a href=
 This inspired me to take a more systematic look at published MPMs.
 Among animal MPMs, I found that between 35% and 60% (depending on the type of error) of published models were incorrectly formulated; and that the error rate was constant through time.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 This led me to wonder if there was a more effective way to teach non-modellers how to construct MPMs.</p>
-<p>The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it using <em>statistical</em> models, but you are not well-versed in constructing and analyzing <em>mathematical</em> models.</p>
-<p>The first goal of this book is to provide a gentle tutorial, and introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.</p>
-<p>I start with the classic age-, size-, and stage-structured MPMs.</p>
-<p>This approach is then expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.</p>
+<p>The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it using <em>statistical</em> models, but you are not well-versed in constructing and analyzing <em>mathematical</em> models.
+In this book I introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
+I am also striving for a presentation that is <em>accessible</em> (in the sense of putting biological concepts ahead of mathematical convenience), <em>consistent</em> in presentation across different types of models, and a <em>comprehensive</em> treatment of the range of life histories that can be represented with MPMs.</p>
+<p>I start with the classic age-, size-, and stage-structured MPMs, assuming that the within-year life-history is fairly straightforward.
+I then show how the general approach can be expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.</p>
 
 </div>
 <div class="footnotes">

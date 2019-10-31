@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-10-30" />
+<meta name="date" content="2019-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,7 +129,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models"><i class="fa fa-check"></i><b>1.1</b> What are matrix population models?</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models-used-for"><i class="fa fa-check"></i><b>1.2</b> What are matrix population models used for?</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-brief-history-of-matrix-population-models"><i class="fa fa-check"></i><b>1.3</b> A brief history of matrix population models</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#common-pitfalls-in-matrix-population-model-construction"><i class="fa fa-check"></i><b>1.4</b> Common pitfalls in matrix population model construction</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#mathematical-essentials"><i class="fa fa-check"></i><b>1.5</b> Mathematical essentials</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#matrix-population-models-in-r"><i class="fa fa-check"></i><b>1.6</b> Matrix population models in R</a></li>
+</ul></li>
 <li class="part"><span><b>I Simple Matrix Population Models</b></span></li>
 <li class="chapter" data-level="2" data-path="general-considerations.html"><a href="general-considerations.html"><i class="fa fa-check"></i><b>2</b> General Considerations</a></li>
 <li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
@@ -378,7 +385,7 @@ Or even better, have the computer do it for you!</p>
 </div>
 <div id="example-2" class="section level2">
 <h2><span class="header-section-number">4.2</span> Example</h2>
-<p>To illustrate these calculations, we use data on the frog <em>Rana aurora</em> from Table 1 of <span class="citation">(<span class="citeproc-not-found" data-reference-id="Biek2002"><strong>???</strong></span>)</span>. There are seven stages (eggs, embryos, larae, metamorphs, juveniles and adults), but the first four are completed in the course of the animal’s first year, so for the model we focus only on eggs, juveniles, and adults.</p>
+<p>To illustrate these calculations, we use data on the frog <em>Rana aurora</em> from Table 1 of <span class="citation">Biek et al. (<a href="#ref-Biek2002">2002</a>)</span>. There are seven stages (eggs, embryos, larae, metamorphs, juveniles and adults), but the first four are completed in the course of the animal’s first year, so for the model we focus only on eggs, juveniles, and adults.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">303</span>)</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.92</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.03</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.55</span>, <span class="fl">0.36</span>, <span class="fl">0.69</span>)</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3">gx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.09</span><span class="op">/</span><span class="fl">0.36</span>, <span class="dv">0</span>)</a>
@@ -395,6 +402,12 @@ Or even better, have the computer do it for you!</p>
 <a class="sourceLine" id="cb24-14" data-line-number="14">Apre &lt;-<span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
 <a class="sourceLine" id="cb24-15" data-line-number="15">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P</a></code></pre></div>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Biek2002">
+<p>Biek, R., W. C. Funk, B. A. Maxell, and L. S. Mills. 2002. “What is missing in amphibian decline research: insights from ecological sensitivity analysis.” <em>Conservation Biology</em> 16: 728–34.</p>
 </div>
 </div>
             </section>

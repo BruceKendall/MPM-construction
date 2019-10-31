@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-10-30" />
+<meta name="date" content="2019-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,7 +129,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models"><i class="fa fa-check"></i><b>1.1</b> What are matrix population models?</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-are-matrix-population-models-used-for"><i class="fa fa-check"></i><b>1.2</b> What are matrix population models used for?</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-brief-history-of-matrix-population-models"><i class="fa fa-check"></i><b>1.3</b> A brief history of matrix population models</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#common-pitfalls-in-matrix-population-model-construction"><i class="fa fa-check"></i><b>1.4</b> Common pitfalls in matrix population model construction</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#mathematical-essentials"><i class="fa fa-check"></i><b>1.5</b> Mathematical essentials</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#matrix-population-models-in-r"><i class="fa fa-check"></i><b>1.6</b> Matrix population models in R</a></li>
+</ul></li>
 <li class="part"><span><b>I Simple Matrix Population Models</b></span></li>
 <li class="chapter" data-level="2" data-path="general-considerations.html"><a href="general-considerations.html"><i class="fa fa-check"></i><b>2</b> General Considerations</a></li>
 <li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
@@ -186,18 +193,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<ul>
-<li>MPMs: what they are and how they can be used</li>
-<li>Growth in MPM use</li>
-<li>Common pitfalls in MPM construction</li>
-<li>Nomenclature</li>
-<li>Software</li>
-</ul>
+<div id="what-are-matrix-population-models" class="section level2">
+<h2><span class="header-section-number">1.1</span> What are matrix population models?</h2>
+</div>
+<div id="what-are-matrix-population-models-used-for" class="section level2">
+<h2><span class="header-section-number">1.2</span> What are matrix population models used for?</h2>
+</div>
+<div id="a-brief-history-of-matrix-population-models" class="section level2">
+<h2><span class="header-section-number">1.3</span> A brief history of matrix population models</h2>
+</div>
+<div id="common-pitfalls-in-matrix-population-model-construction" class="section level2">
+<h2><span class="header-section-number">1.4</span> Common pitfalls in matrix population model construction</h2>
+<p>Summary of ideas and results in <span class="citation">Kendall et al. (<a href="#ref-Kendall2019">2019</a>)</span>.</p>
+</div>
+<div id="mathematical-essentials" class="section level2">
+<h2><span class="header-section-number">1.5</span> Mathematical essentials</h2>
+<p>There is no getting around the fact that MPMs are mathematical constructs.
+However, I will try to make the notation be as closely tied to the biology as possible.
+One challenge is that we nned a consistent way to reference demographic rates of specific age, size, or stage classes.
+In <em>mathematical</em> notation, <span class="math inline">\(p_i\)</span> is the survival rate of individuals in the <span class="math inline">\(i\)</span>’th class.
+Thus, for example, in an age-structured model with age classes 0, 1, 2, and so on, <span class="math inline">\(p_2\)</span> is the survival of one-year-olds.
+In a stage-structured model with stage classes newborn, juvenile, sub-adult and adult, then <span class="math inline">\(p_2\)</span> is the survival of juveniles.
+Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don’t align.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+Thus I introduce a <em>biological</em> notation, in which the actual age or the name of the class is shown between parentheses in the subscript.
+Thus, in an age-structured model, <span class="math inline">\(p_{(2)}\)</span> is the survival of two-year-olds (survival from age 2 to age 3).
+In a stage-structured model, <span class="math inline">\(p_{(\text{sub-adult})}\)</span> is the annual survival of individuals who start the year in the sub-adult stage.</p>
+<p>This distinction is also useful in referencing the vector of population abundances in year <span class="math inline">\(t\)</span>, <span class="math inline">\(\mathbf{n}(t)\)</span>.
+As we will see, MPMs can be constructed in different ways that either do or do not include newborn individuals in the population vector.
+In that case, careful attention to context is required to know what <span class="math inline">\(n_1(t)\)</span> (the first element of <span class="math inline">\(\mathbf{n}(t)\)</span>) refers to.
+In contrast, <span class="math inline">\(n_{(0)}(t)\)</span> vs. <span class="math inline">\(n_{(1)}(t)\)</span>, or <span class="math inline">\(n_{(\text{newborn})}(t)\)</span> vs. <span class="math inline">\(n_{(\text{juvenile})}(t)\)</span>, is clear and unambiguous.</p>
+<p>Transition notation</p>
+<p>Matrix multiplication</p>
+</div>
+<div id="matrix-population-models-in-r" class="section level2">
+<h2><span class="header-section-number">1.6</span> Matrix population models in R</h2>
 
+</div>
 </div>
 
 
 
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Kendall2019">
+<p>Kendall, B. E., M. Fujiwara, J. Diaz-Lopez, S. Schneider, J. Voigt, and S. Wiesner. 2019. “Persistent problems in the construction of matrix population models.” <em>Ecological Modelling</em> 406: 33–43.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies betwewn age-structured and other models. It also doesn’t work in R, where the indexing of a vector always starts at one.<a href="intro.html#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
