@@ -37,9 +37,8 @@ Among animal MPMs, I found that between 35% and 60% (depending on the type of er
 This led me to wonder if there was a more effective way to teach non-modellers how to construct MPMs.
 
 The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it using *statistical* models, but you are not well-versed in constructing and analyzing *mathematical* models.
+In this book I introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
+I am also striving for a presentation that is *accessible* (in the sense of putting biological concepts ahead of mathematical convenience), *consistent* in presentation across different types of models, and a *comprehensive* treatment of the range of life histories that can be represented with MPMs.
 
-The first goal of this book is to provide a gentle tutorial, and introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
-
-I start with the classic age-, size-, and stage-structured MPMs.
-
-This approach is then expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.
+I start with the classic age-, size-, and stage-structured MPMs, assuming that the within-year life-history is fairly straightforward.
+I then show how the general approach can be expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.
