@@ -10,6 +10,22 @@
 Summary of ideas and results in @Kendall2019.
 
 ## Mathematical essentials
+There is no getting around the fact that MPMs are mathematical constructs.
+However, I will try to make the notation be as closely tied to the biology as possible. 
+One challenge is that we nned a consistent way to reference demographic rates of specific age, size, or stage classes.
+In *mathematical* notation, $p_i$ is the survival rate of individuals in the $i$'th class.
+Thus, for example, in an age-structured model with age classes 0, 1, 2, and so on, $p_2$ is the survival of one-year-olds.
+In a stage-structured model with stage classes newborn, juvenile, sub-adult and adult, then $p_2$ is the survival of juveniles.
+Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don't align.^[One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies betwewn age-structured and other models. It also doesn't work in R, where the indexing of a vector always starts at one.]
+Thus I introduce a *biological* notation, in which the actual age or the name of the class is shown between parentheses in the subscript.
+Thus, in an age-structured model, $p_{(2)}$ is the survival of two-year-olds (survival from age 2 to age 3).
+In a stage-structured model, $p_{(\text{sub-adult})}$ is the annual survival of individuals who start the year in the sub-adult stage.
+
+This distinction is also useful in referencing the vector of population abundances in year $t$, $\vect{n}(t)$. 
+As we will see, MPMs can be constructed in different ways that either do or do not include newborn individuals in the population vector.
+In that case, careful attention to context is required to know what $n_1(t)$ (the first element of $\vect{n}(t)$) refers to.
+In contrast, $n_{(0)}(t)$ vs. $n_{(1)}(t)$, or $n_{(\text{newborn})}(t)$ vs. $n_{(\text{juvenile})}(t)$, is clear and unambiguous.
+
 
 ## Matrix population models in R
 
