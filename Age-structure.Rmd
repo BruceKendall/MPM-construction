@@ -1,5 +1,6 @@
 # Age-Structured Models
 
+
 ## The recipe
 ### Ingredients
 For more details on data needs, see XXX, but in brief:
@@ -7,7 +8,7 @@ For more details on data needs, see XXX, but in brief:
 1. A list of annual survival rates (the fraction of individuals that survive for a year), one for each age. 
 Ideally, this will be survival from one birthay to the next (including from birth to the first birthday). 
 If males and females have different survival rates, list the female values. 
-We will call this list the vector $\vect{p}$, with elements $p_0$ (survival probability from birth to age 1), $p_1$ (survival probability from age 1 to age 2), $p_2$ (survival probability from age 2 to age 3), etc.
+We will call this list the vector $\vect{p}$, with elements $p_0$ (survival probability from birth to age 1), $p_1$ (survival probability from age 1 to age 2), $p_2$ (survival probability from age 2 to age 3), etc. 
 2. A list of age-specific birth rates: For each parental age, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent. 
 We will call this list the vector $\vect{b}$, with elements $b_1$ (newborns produced by a 1-year-old parent), $b_2$ (newborns produced by a 2-year-old parent), etc. 
 Newborns cannot reproduce, so there is no value of $b_0$; if the age at first reproduction is less than one, then you will need a shorter timestep.

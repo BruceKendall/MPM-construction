@@ -10,6 +10,7 @@
 Summary of ideas and results in @Kendall2019.
 
 ## Mathematical essentials
+### Notation
 There is no getting around the fact that MPMs are mathematical constructs.
 However, I will try to make the notation be as closely tied to the biology as possible. 
 One challenge is that we nned a consistent way to reference demographic rates of specific age, size, or stage classes.
@@ -28,7 +29,7 @@ In contrast, $n_{(0)}(t)$ vs. $n_{(1)}(t)$, or $n_{(\text{newborn})}(t)$ vs. $n_
 
 Transition notation
 
-Matrix multiplication
+### Matrix multiplication
 
 ## Matrix population models in R
 
