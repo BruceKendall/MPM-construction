@@ -9,8 +9,8 @@ biblio-style: apalike
 link-citations: yes
 ---
 
-\newcommand{\vect}[1]{\mathbf{#1}}
 
+\newcommand{\vect}[1]{\mathbf{#1}}
 \newcommand{\pari}[2]{#1_{(\text{#2})}}
 \newcommand{\p}[1]{\pari{p}{#1}}
 \newcommand{\m}[1]{\pari{m}{#1}}
