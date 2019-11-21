@@ -2,7 +2,7 @@
 \newcommand{\vect}[1]{\mathbf{#1}}
 \newcommand{\pari}[2]{#1_{(\text{#2})}}
 \newcommand{\p}[1]{\pari{p}{#1}}
-\newcommand{\m}[1]{\pari{m}{#1}}
+\newcommand{\b}[1]{\pari{b}{#1}}
 \newcommand{\n}[1]{\pari{n}{#1}}
 \newcommand{\gg}[1]{\pari{g}{#1}}
 
@@ -18,10 +18,10 @@ Ideally, this will be survival from one birthay to the next (including from birt
 If males and females have different survival rates, list the female values. 
 We will call this list the vector $\vect{p}$, with elements $\p{0}$ (survival probability from birth to age 1), $\p1$ (survival probability from age 1 to age 2), $\p2$ (survival probability from age 2 to age 3), etc. 
 2. A list of age-specific birth rates: For each parental age, the number of offspring per parent (counting both parents), or the number of female offspring produced by each female parent. 
-We will call this list the vector $\vect{b}$, with elements $b_1$ (newborns produced by a 1-year-old parent), $b_2$ (newborns produced by a 2-year-old parent), etc. 
-Newborns cannot reproduce, so there is no value of $b_0$; if the age at first reproduction is less than one, then you will need a shorter timestep.
+We will call this list the vector $\vect{b}$, with elements $\b1$ (newborns produced by a 1-year-old parent), $\b2$ (newborns produced by a 2-year-old parent), etc. 
+Newborns cannot reproduce, so there is no value of $\b0$; if the age at first reproduction is less than one, then you will need a shorter timestep.
 3. Identify the maximum age, above which there is no survival. 
-Call this age $m$; while there may be a non-zero birth rate $b_m$, $m$-year-olds do not survive to age $m+1$, so $p_m = 0$. 
+Call this age $m$; while there may be a non-zero birth rate $\b{m}$, $m$-year-olds do not survive to age $m+1$, so $\p{m} = 0$. 
 
 When these are arranged in tabular form, it will look like part of a life table, which you may recall from undergraduate ecology courses.
 In fact, these two lists provide all the information needed to construct the other columns of the life table (such as the cumulative survivorship, $l_x$); but we don't need those to construct an MPM, so don't pursue that further.
@@ -41,7 +41,7 @@ lizard <- data.frame(x = 0:7, px = c(round(px, 3), 0), bx = c(NA, bx))
 knitr::kable(
   lizard,
   caption = "Age-specific survival and birth rates for the lizard _Zootoca vivipara_ (formerly _Lacerta vivipara_) in the Netherlands [@Strijbosch1988]. Age-specific annual survival is calculated from the female cumulative survival values ($l_x$) in their Table 6. Age-specific birth rates are calculated by dividing the birth rates in their Table 6 ($m_x$) by two, as these appear to represent all offspring, and the primary sex ratio (estimated from two-year-old individuals) did not differ from 1 (pp. 21-22).",
-  col.names = c("Age in years ($x$)", "Female annual survival ($p_x$)", "Female offpring per female ($b_x$)") 
+  col.names = c("Age in years ($x$)", "Female annual survival ($\\p{x}$)", "Female offpring per female ($\\b{x}$)") 
 )
 ```
 
@@ -52,7 +52,7 @@ knitr::kable(
 If $m=3$, this would look like:
 \begin{equation}
 \vect{B} = \begin{pmatrix}
-              b_1 & b_2 & b_3 \\
+              \b1 & \b2 & \b3 \\
               1 & 0 & 0 \\
               0 & 1 & 0 \\
               0 & 0 & 1
@@ -67,9 +67,9 @@ If $m=3$, this would look like:
 If $m=3$, this would look like:
 \begin{equation}
 \vect{P} = \begin{pmatrix}
-              p_0 & 0 & 0 & 0 \\
-              0 & p_1 & 0 & 0 \\
-              0 & 0 & p_2 & 0
+              \p0 & 0 & 0 & 0 \\
+              0 & \p1 & 0 & 0 \\
+              0 & 0 & \p2 & 0
             \end{pmatrix}
 \end{equation}
 
@@ -94,15 +94,15 @@ For the $m=3$ case above, these work out to:
 \begin{equation}
 \begin{aligned}
 \vect{A_{post}} &= \begin{pmatrix}
-              p_0 b_1 & p_1 b_2 & p_2 b_3 & 0\\
-              p_0 & 0 & 0 & 0 \\
-              0 & p_1 & 0 & 0 \\
-              0 & 0 & p_2 & 0
+              \p0 \b1 & \p1 \b2 & \p2 \b3 & 0\\
+              \p0 & 0 & 0 & 0 \\
+              0 & \p1 & 0 & 0 \\
+              0 & 0 & \p2 & 0
             \end{pmatrix} \\
 \vect{A_{pre}} &= \begin{pmatrix}
-              b_1 p_0 & b_2 p_0 & b_3 p_0 \\
-              p_1 & 0 & 0 \\
-              0 & p_2 & 0
+              \b1 \p0 & \b2 \p0 & \b3 \p0 \\
+              \p1 & 0 & 0 \\
+              0 & \p2 & 0
             \end{pmatrix} 
 \end{aligned}
 (\#eq:A3-pre-post)
@@ -116,7 +116,7 @@ px <- c(0.424, 0.726, 0.513, 0.361, 0.175, 0.700, 0.286) # Survival
 bx <- c(0.040, 1.470, 2.065, 2.440, 3.250, 3.250, 3.250) # Births
 m  <- 7                                                  # Maximum age
 ```
-Notice that the first element of `px` is $p_0$, whereas the first element of `bx` is $b_1$.
+Notice that the first element of `px` is $\p0$, whereas the first element of `bx` is $\b1$.
 Thus, `px` doesn't have the zero surivival of 7-year-olds, and `bx` doesn't have the zero birth rate of newborns.
 If you are working with a dataset that includes these zeros, you'll need to trim them off before moving to the next step.
 
@@ -185,8 +185,8 @@ Even if there is not strong evidence to support that assumption, there may be so
 In this case, we can augment the Leslie model by adding an "old individual" stage; while this technically becomes a stage-structured model, it is such a common modification to age structured models that we include it here.
 
 Now, instead of $m$ being the maximum age, we can write $m+$ to represent the class of individuals age $m$ and above. 
-They have a non-zero survival, so the vector of survival values now has $m+1$ values ($p_0, p_1, \dots, p_{m-1}, p_{m+}$).
-The only modification to the recipe above is to put the value of $p_{m+}$ into the bottom-right element of the $\vect{P}$ matrix.
+They have a non-zero survival, so the vector of survival values now has $m+1$ values ($\p0, \p1, \dots, \p{m-1}, \p{m+}$).
+The only modification to the recipe above is to put the value of $\p{m+}$ into the bottom-right element of the $\vect{P}$ matrix.
 All else proceeds as above.
 
 ### Post-reproductive ages
@@ -243,17 +243,17 @@ We will call these $\vect{B^T}$ and $\vect{P^T}$.
 For the $m=3$ example, these look like 
 \begin{equation}
 \vect{B^T} = \begin{pmatrix}
-              b_1 & 1 & 0 & 0\\
-              b_2 & 0 & 1 & 0\\
-              b_3 & 0 & 0 & 1
+              \b1 & 1 & 0 & 0\\
+              \b2 & 0 & 1 & 0\\
+              \b3 & 0 & 0 & 1
             \end{pmatrix}
 \end{equation}
 and
 \begin{equation}
 \vect{P^T} = \begin{pmatrix}
-              p_0 & 0 & 0\\
-              0 & p_1 & 0\\
-              0 & 0 & p_1\\
+              \p0 & 0 & 0\\
+              0 & \p1 & 0\\
+              0 & 0 & \p1\\
               0 & 0 & 0
             \end{pmatrix}.
 \end{equation}
