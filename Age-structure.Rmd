@@ -142,6 +142,17 @@ B <- matrix(c(bx, diag(m)),
             byrow = TRUE)
 B
 ```
+Even better, give the matrix informative row and column names.
+The columns represent the parents, so we would want to label the columns "age 1", "age 2", etc.
+The first row represents the newborns (age zero), and the rest of the rows are still the parents (who haven't aged, as we are assuming that the breeding season is very short), so we want to label the rows "age 0", "age 1", "age 2", etc.
+We set the column and row names using the R functions `colnames()` and `rownames()`, respectively.
+The other trick is to use the `paste()` command to generate an appropriate character vector: for example, `paste("age", 1:3)` generates the character vector `"age 1", "age 2", "age 3"`.
+```{r}
+colnames(B) <- paste("age", 1:m)
+rownames(B) <- paste("age", 0:m)
+B
+```
+
 Now construct the survival matrix, $\vect{P}$.
 We will again use `diag()`, but in a different way.
 If `px` is a vector with length $m$, then `diag(px)` creates an $m \times m$ matrix with the values of `px` on the diagonal and zeros everywhere else.
@@ -149,6 +160,13 @@ Also, recall that `cbind()` ("column bind") adds the second argument to the righ
 ```{r}
 P <- diag(px)     # Make the diagonal matrix with survival values
 P <- cbind(P, 0)  # Add an extra column of zeros
+P
+```
+Again, we add row and column names.
+Here, the columns represent the ages right at the end of the breeding season (ages 0 through $m$), whereas the rows represents the ages at the beginning of the *next* breeding season a year later (ages 1 through $m$):
+```{r}
+colnames(P) <- paste("age", 0:m)
+rownames(P) <- paste("age", 1:m)
 P
 ```
 
@@ -163,6 +181,8 @@ Apost
 Apre <- P %*% B
 Apre
 ```
+Notice that the row and column names that we set for the `B` and `P` matrices propagated through automatically, so that the first row and column of the postbreeding model represents newborns ("age 0"), whereas in the prebreeding census model the irst row and column represents age 1 (the youngest individuals are just about to have their first birthday).
+
 If you work through the numbers, you'll see that these match the structure of the post-breeding and pre-breeding matrices in Eq. \@ref(eq:A3-pre-post).
 
 In theory, these two matrices should have exactly the same asymptotic growth rate, $\lambda$.
