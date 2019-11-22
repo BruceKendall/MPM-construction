@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-11-21" />
+<meta name="date" content="2019-11-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,68 +49,6 @@
 
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -145,8 +83,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="age-structured-models.html"><a href="age-structured-models.html"><i class="fa fa-check"></i><b>3</b> Age-Structured Models</a><ul>
 <li class="chapter" data-level="3.1" data-path="age-structured-models.html"><a href="age-structured-models.html#the-recipe"><i class="fa fa-check"></i><b>3.1</b> The recipe</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="age-structured-models.html"><a href="age-structured-models.html#ingredients"><i class="fa fa-check"></i><b>3.1.1</b> Ingredients</a></li>
-<li class="chapter" data-level="3.1.2" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-birth-matrix-mathbfb"><i class="fa fa-check"></i><b>3.1.2</b> Construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span></a></li>
-<li class="chapter" data-level="3.1.3" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-survival-matrix-mathbfp"><i class="fa fa-check"></i><b>3.1.3</b> Construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-birth-matrix-vectb"><i class="fa fa-check"></i><b>3.1.2</b> Construct the birth matrix, <span class="math inline">\(\vect{B}\)</span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="age-structured-models.html"><a href="age-structured-models.html#construct-the-survival-matrix-vectp"><i class="fa fa-check"></i><b>3.1.3</b> Construct the survival matrix, <span class="math inline">\(\vect{P}\)</span></a></li>
 <li class="chapter" data-level="3.1.4" data-path="age-structured-models.html"><a href="age-structured-models.html#combine-the-birth-and-survival-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Combine the birth and survival matrices into the projection matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="age-structured-models.html"><a href="age-structured-models.html#example"><i class="fa fa-check"></i><b>3.2</b> Example</a></li>
@@ -165,9 +103,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#the-recipe-1"><i class="fa fa-check"></i><b>4.1</b> The recipe</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#ingredients-1"><i class="fa fa-check"></i><b>4.1.1</b> Ingredients</a></li>
-<li class="chapter" data-level="4.1.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-birth-matrix-mathbfb-1"><i class="fa fa-check"></i><b>4.1.2</b> Construct the birth matrix, <span class="math inline">\(\mathbf{B}\)</span></a></li>
-<li class="chapter" data-level="4.1.3" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-survival-matrix-mathbfp-1"><i class="fa fa-check"></i><b>4.1.3</b> Construct the survival matrix, <span class="math inline">\(\mathbf{P}\)</span></a></li>
-<li class="chapter" data-level="4.1.4" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-developmental-transition-matrix-mathbft"><i class="fa fa-check"></i><b>4.1.4</b> Construct the developmental transition matrix, <span class="math inline">\(\mathbf{T}\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-birth-matrix-vectb-1"><i class="fa fa-check"></i><b>4.1.2</b> Construct the birth matrix, <span class="math inline">\(\vect{B}\)</span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-survival-matrix-vectp-1"><i class="fa fa-check"></i><b>4.1.3</b> Construct the survival matrix, <span class="math inline">\(\vect{P}\)</span></a></li>
+<li class="chapter" data-level="4.1.4" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-developmental-transition-matrix-vectt"><i class="fa fa-check"></i><b>4.1.4</b> Construct the developmental transition matrix, <span class="math inline">\(\vect{T}\)</span></a></li>
 <li class="chapter" data-level="4.1.5" data-path="stage-structured-models.html"><a href="stage-structured-models.html#combine-the-birth-survival-and-transition-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>4.1.5</b> Combine the birth, survival, and transition matrices into the projection matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-2"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
@@ -198,6 +136,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <div id="what-are-matrix-population-models" class="section level2">
 <h2><span class="header-section-number">1.1</span> What are matrix population models?</h2>
+<p>The population models that are taught in undergraduate ecology courses—the exponential growth model, logistic model, Ricker model, etc.—are useful for explaining and illustrating basic patterns in population dynamics, such as patterns of exponential growth, the effects of density dependence, and phenomena such as population cycles and chaos.
+Their utility stems from their simplicity, which allows them to be analyzed without recourse to pages of advanced math.
+In particular, most of these foundational models assume that all individuals in the population can be treated as if they have identical birth and death rates.
+As a practicing ecologist or conservation biologist, you know first-hand that all individuals in a population are <em>not</em> identical: they age, develop, and grow; and birth and death rates (which I will collectiely call “demography”) often vary systematically with age, developmental stage, and size.
+Individuals can differ in other important ways as well: for example, individuals of a given age may exhibit morphological variation resulting from genetic differences or heterogeneity in their developmental environment; or they might exhibit different behavioral responses to a given stimulus resulting from variation in prior experience.
+These phenotypic differences can also affect demography.
+Ultimately, an individual’s short-term fitness (its survival probability or mortality risk, as well as its expected birth rate) depends on both its <em>state</em> (age, stage, or size), its <em>phenotype</em>, and the <em>environment</em> (encompassing abiotic conditions and resources as well other organisms with which it interacts) in which it lives.
+Simple models that characterize the population simply by its abundance, density, or biomass cannot represent this biological richness; thus, they do no provide insight on whether this richness matters for population dynamics, or how it might be exploited to manage the population (e.g., to arrest the decline of a rare species).
+On the other hand, a model that encompassed all of this, together with all of the feedback loops between the focal species and the ecological community it’s embedded in, would be tremendously complex (browse any issue of the journal <em>Ecological Modelling</em> to see examples) and would require tremendous amounts of data to estimate all the parameters.</p>
+<p>MPMs are intermediate complexity</p>
+<p>Assumptions: discrete state and discrete time; also linearity for standard model</p>
+<p>“M” comes from use of matrix algebra to both make representation more compact and to give access to analytical and computational tools</p>
+<p>The standard models only require information on survival fraction and mean birth rates across individuals within each class, as well as information on the probability that an individual moves from one class to another.</p>
 </div>
 <div id="what-are-matrix-population-models-used-for" class="section level2">
 <h2><span class="header-section-number">1.2</span> What are matrix population models used for?</h2>
@@ -219,13 +170,13 @@ One challenge is that we nned a consistent way to reference demographic rates of
 In <em>mathematical</em> notation, <span class="math inline">\(p_i\)</span> is the survival rate of individuals in the <span class="math inline">\(i\)</span>’th class.
 Thus, for example, in an age-structured model with age classes 0, 1, 2, and so on, <span class="math inline">\(p_2\)</span> is the survival of one-year-olds.
 In a stage-structured model with stage classes newborn, juvenile, sub-adult and adult, then <span class="math inline">\(p_2\)</span> is the survival of juveniles.
-Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don’t align.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don’t align.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 Thus I introduce a <em>biological</em> notation, in which the actual age or the name of the class is shown between parentheses in the subscript.
 Thus, in an age-structured model, <span class="math inline">\(p_{(2)}\)</span> is the survival of two-year-olds (survival from age 2 to age 3).
 In a stage-structured model, <span class="math inline">\(p_{(\text{sub-adult})}\)</span> is the annual survival of individuals who start the year in the sub-adult stage.</p>
-<p>This distinction is also useful in referencing the vector of population abundances in year <span class="math inline">\(t\)</span>, <span class="math inline">\(\mathbf{n}(t)\)</span>.
+<p>This distinction is also useful in referencing the vector of population abundances in year <span class="math inline">\(t\)</span>, <span class="math inline">\(\vect{n}(t)\)</span>.
 As we will see, MPMs can be constructed in different ways that either do or do not include newborn individuals in the population vector.
-In that case, careful attention to context is required to know what <span class="math inline">\(n_1(t)\)</span> (the first element of <span class="math inline">\(\mathbf{n}(t)\)</span>) refers to.
+In that case, careful attention to context is required to know what <span class="math inline">\(n_1(t)\)</span> (the first element of <span class="math inline">\(\vect{n}(t)\)</span>) refers to.
 In contrast, <span class="math inline">\(n_{(0)}(t)\)</span> vs. <span class="math inline">\(n_{(1)}(t)\)</span>, or <span class="math inline">\(n_{(\text{newborn})}(t)\)</span> vs. <span class="math inline">\(n_{(\text{juvenile})}(t)\)</span>, is clear and unambiguous.</p>
 <p>Transition notation</p>
 </div>
@@ -249,8 +200,8 @@ In contrast, <span class="math inline">\(n_{(0)}(t)\)</span> vs. <span class="ma
 </div>
 <div class="footnotes">
 <hr />
-<ol start="4">
-<li id="fn4"><p>One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies betwewn age-structured and other models. It also doesn’t work in R, where the indexing of a vector always starts at one.<a href="intro.html#fnref4" class="footnote-back">↩</a></p></li>
+<ol start="1">
+<li id="fn1"><p>One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies betwewn age-structured and other models. It also doesn’t work in R, where the indexing of a vector always starts at one.<a href="intro.html#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

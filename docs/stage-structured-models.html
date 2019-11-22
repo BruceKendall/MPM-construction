@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-11-21" />
+<meta name="date" content="2019-11-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -389,21 +389,21 @@ Or even better, have the computer do it for you!</p>
 <div id="example-2" class="section level2">
 <h2><span class="header-section-number">4.2</span> Example</h2>
 <p>To illustrate these calculations, we use data on the frog <em>Rana aurora</em> from Table 1 of <span class="citation">Biek et al. (<a href="#ref-Biek2002">2002</a>)</span>. There are seven stages (eggs, embryos, larae, metamorphs, juveniles and adults), but the first four are completed in the course of the animal’s first year, so for the model we focus only on eggs, juveniles, and adults.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">303</span>)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.92</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.03</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.55</span>, <span class="fl">0.36</span>, <span class="fl">0.69</span>)</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">gx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.09</span><span class="op">/</span><span class="fl">0.36</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5">l &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb24-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, <span class="kw">diag</span>(l))</a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
-<a class="sourceLine" id="cb24-9" data-line-number="9">T &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">-</span>gx)</a>
-<a class="sourceLine" id="cb24-10" data-line-number="10">T[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span>gx[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb24-11" data-line-number="11">T[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span>gx[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb24-12" data-line-number="12">T &lt;-<span class="st"> </span>T[<span class="op">-</span><span class="dv">1</span>, ]</a>
-<a class="sourceLine" id="cb24-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb24-14" data-line-number="14">Apre &lt;-<span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
-<a class="sourceLine" id="cb24-15" data-line-number="15">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">303</span>)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.92</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.03</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.55</span>, <span class="fl">0.36</span>, <span class="fl">0.69</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">gx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.09</span><span class="op">/</span><span class="fl">0.36</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">l &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, <span class="kw">diag</span>(l))</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">T &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">-</span>gx)</a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">T[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span>gx[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">T[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span>gx[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb28-12" data-line-number="12">T &lt;-<span class="st"> </span>T[<span class="op">-</span><span class="dv">1</span>, ]</a>
+<a class="sourceLine" id="cb28-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb28-14" data-line-number="14">Apre &lt;-<span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb28-15" data-line-number="15">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P</a></code></pre></div>
 
 </div>
 </div>
