@@ -1,0 +1,88 @@
+# Sensititivity analysis
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\pari}[2]{#1_{(\text{#2})}}
+\newcommand{\p}[1]{\pari{p}{#1}}
+\newcommand{\b}[1]{\pari{b}{#1}}
+\newcommand{\n}[1]{\pari{n}{#1}}
+\newcommand{\gg}[1]{\pari{g}{#1}}
+
+\newcommand{\parij}[3]{#1_{(\text{#3} \rightarrow \text{#2})}}
+\newcommand{\g}[2]{\parij{g}{#1}{#2}}
+
+This book is about MPM construction, not the analysis of such models. 
+Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted $\lambda$) to changes in the age-specific birth and death rates. 
+Existing tools (e.g., the `sensitivity()` function in the **popbio** R package) can calculate sensitivities of $\lambda$ to changes in the elements of an annual projection matrix ($\vect{A_{post}}$ or $\vect{A_{pre}}$). 
+However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. \@ref(eq:A3-pre-post)).
+Extracting the sensitivities of $\lambda$ to vital rates from the sensitivities of $\lambda$ to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.
+
+Instead, we can make use of established procedures for sensitivy analysis of "periodic matrix products" [@Caswell1994].
+We will start with the age-structured model, for which the analysis is particularly straightforward, and then move on to the more complex models.
+
+## Sensitivity analysis of age-structured MPMs
+Here, there are just two "seasons:" from the beginning of the breeding period to the end of the breeding period (represented by the matrix $\vect{B}$); and from the end of the breeding period in one year to the beginning of the breeding period in the next year (represented by the matrix $\vect{P}$).  
+
+The recipe is as follows:
+
+1. Construct both the postbreeding census and prebreeding census projection matrices ($\vect{A_{post}}$ and $\vect{A_{pre}}$).
+2. Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
+We will call those $\vect{S_A}^{\text{(post)}}$ and $\vect{S_A}^{\text{(pre)}}$.
+3. Construct the *transpose* of the $\vect{B}$ and $\vect{P}$ matrices by swapping the rows and columns. 
+We will call these $\vect{B^T}$ and $\vect{P^T}$.
+For the $m=3$ example, these look like 
+\begin{equation}
+\vect{B^T} = \begin{pmatrix}
+              \b1 & 1 & 0 & 0\\
+              \b2 & 0 & 1 & 0\\
+              \b3 & 0 & 0 & 1
+            \end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\vect{P^T} = \begin{pmatrix}
+              \p0 & 0 & 0\\
+              0 & \p1 & 0\\
+              0 & 0 & \p1\\
+              0 & 0 & 0
+            \end{pmatrix}.
+\end{equation}
+4. Matrix multiply $\vect{P^T}$ by $\vect{S_A}^{\text{(pre)}}$. The top row in the resulting matrix contains the sensitivities of $\lambda$ to the age-specific birth rates.
+5. Matrix multiply $\vect{B^T}$ by $\vect{S_A}^{\text{(post)}}$. The diagonal entries in the resulting matrix contains the sensitivities of $\lambda$ to the age-specific survival rates.
+
+
+
+### Example
+We will revisit the lizard MPM from chapter X.
+First we will clear the workspace of existing matrices and other relevant objects, and then  attach the model we saved in chapter X, which will make opjects like `Apre` available to us:
+```{r}
+rm(list = names(lizard_age_mpm)) # Clear the workspace of potential name conflicts
+attach(lizard_age_mpm) # Get the age structured lizard model from ch. 3.
+```
+
+Now use the **popbio** library to calculate the matrix sensitivities of `Apost` and `Apre`:
+```{r}
+library(popbio) # This library includes tools for calculating lambda and matrix sensitivities
+
+# Calculate the sensitivity matrices
+Spost <- sensitivity(Apost)
+Spre <- sensitivity(Apre)
+```
+Now we combine steps 3 and 4 to calculate the sensitivities of $\lambda$ to survival.
+To do a matrix transpose in R, use the `t()` function.
+```{r}
+# Do the matrix multiplication to calculate the sensitivities to survival
+Stemp1 <- t(B) %*% Spost
+diag(Stemp1[, 1:m])
+```
+And now we do the same to calculate the sensitivity of $\lambda$ to age-specific birth rates:
+```{r}
+# Do the matrix multiplication to calculate the sensitivities to birth rates
+Stemp2 <- t(P) %*% Spre
+Stemp2[1, ]
+```
+
+[Discuss; show how to get elasticities from these]
+
+Finally, it's always good practice to clean up the workspace!
+```{r}
+detach(lizard_age_mpm) # Clean up
+```

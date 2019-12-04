@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-11-22" />
+<meta name="date" content="2019-12-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,9 +158,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.4" data-path="age-structured-models.html"><a href="age-structured-models.html#dependent-offspring"><i class="fa fa-check"></i><b>3.4.4</b> Dependent offspring</a></li>
 <li class="chapter" data-level="3.4.5" data-path="age-structured-models.html"><a href="age-structured-models.html#individual-heterogeneity"><i class="fa fa-check"></i><b>3.4.5</b> Individual heterogeneity</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="age-structured-models.html"><a href="age-structured-models.html#sensitivity-analyses"><i class="fa fa-check"></i><b>3.5</b> Sensitivity analyses</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="age-structured-models.html"><a href="age-structured-models.html#example-1"><i class="fa fa-check"></i><b>3.5.1</b> Example</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#the-recipe-1"><i class="fa fa-check"></i><b>4.1</b> The recipe</a><ul>
@@ -170,9 +167,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.4" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-developmental-transition-matrix-mathbft"><i class="fa fa-check"></i><b>4.1.4</b> Construct the developmental transition matrix, <span class="math inline">\(\mathbf{T}\)</span></a></li>
 <li class="chapter" data-level="4.1.5" data-path="stage-structured-models.html"><a href="stage-structured-models.html#combine-the-birth-survival-and-transition-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>4.1.5</b> Combine the birth, survival, and transition matrices into the projection matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-2"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
+<li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-1"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
+<li class="chapter" data-level="6" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html"><i class="fa fa-check"></i><b>6</b> Sensititivity analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#sensitivity-analysis-of-age-structured-mpms"><i class="fa fa-check"></i><b>6.1</b> Sensitivity analysis of age-structured MPMs</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#example-2"><i class="fa fa-check"></i><b>6.1.1</b> Example</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -469,6 +471,16 @@ Lets use the <code>lambda()</code> function in the <strong>popbio</strong> packa
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
 <pre><code>## [1] 0.9986679</code></pre>
 <p>Yup, they match!</p>
+<p>We will want to use this model later in the book, so package it up into a list for easy access:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">lizard_age_mpm &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="dt">Apost =</span> Apost,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="dt">Apre =</span> Apre,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="dt">B =</span> B,</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">  <span class="dt">P =</span> P,</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  <span class="dt">px =</span> px,</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">  <span class="dt">bx =</span> bx,</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">  <span class="dt">m =</span> m</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">) </a></code></pre></div>
 </div>
 <div id="why-use-this-recipe" class="section level2">
 <h2><span class="header-section-number">3.3</span> Why use this recipe?</h2>
@@ -523,77 +535,12 @@ Furthermore, if pregnancy affects maternal survival, we could explicitly disting
 <p>Finally, the model assumes that all individuals of a given age have the same birth and death rates.
 Violation of this assumption creates “unmodelled heterogeneity,” and might affect the predictions of your model, depending on the nature of the heterogeneity and the way you are using the model.
 Both the identification of such heterogeneity and the consequences are ongoing areas of research; I won’t provide a general treatment in this book, but will touch on it in certain points where it commonly arises.</p>
-</div>
-</div>
-<div id="sensitivity-analyses" class="section level2">
-<h2><span class="header-section-number">3.5</span> Sensitivity analyses</h2>
-<p>This book is about MPM construction, not the analysis of such models.
-Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted <span class="math inline">\(\lambda\)</span>) to changes in the age-specific birth and death rates.
-Existing tools (e.g., the <code>sensitivity()</code> function in the <strong>popbio</strong> R package) can calculate sensitivities of <span class="math inline">\(\lambda\)</span> to changes in the elements of an annual projection matrix (<span class="math inline">\(\mathbf{A_{post}}\)</span> or <span class="math inline">\(\mathbf{A_{pre}}\)</span>).
-However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. <a href="age-structured-models.html#eq:A3-pre-post">(3.2)</a>).
-Extracting the sensitivities of <span class="math inline">\(\lambda\)</span> to vital rates from the sensitivities of <span class="math inline">\(\lambda\)</span> to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.</p>
-<p>Instead, we can make use of established procedures for sensitivy analysis of “periodic matrix products” <span class="citation">(Caswell and Trevisan <a href="#ref-Caswell1994">1994</a>)</span>.
-The recipe is as follows:</p>
-<ol style="list-style-type: decimal">
-<li>Construct both the postbreeding census and prebreeding census projection matrices (<span class="math inline">\(\mathbf{A_{post}}\)</span> and <span class="math inline">\(\mathbf{A_{pre}}\)</span>).</li>
-<li>Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
-We will call those <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span> and <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>.</li>
-<li>Construct the <em>transpose</em> of the <span class="math inline">\(\mathbf{B}\)</span> and <span class="math inline">\(\mathbf{P}\)</span> matrices by swapping the rows and columns.
-We will call these <span class="math inline">\(\mathbf{B^T}\)</span> and <span class="math inline">\(\mathbf{P^T}\)</span>.
-For the <span class="math inline">\(m=3\)</span> example, these look like
-<span class="math display">\[\begin{equation}
-\mathbf{B^T} = \begin{pmatrix}
-           b_{(\text{1})} &amp; 1 &amp; 0 &amp; 0\\
-           b_{(\text{2})} &amp; 0 &amp; 1 &amp; 0\\
-           b_{(\text{3})} &amp; 0 &amp; 0 &amp; 1
-         \end{pmatrix}
-\end{equation}\]</span>
-and
-<span class="math display">\[\begin{equation}
-\mathbf{P^T} = \begin{pmatrix}
-           p_{(\text{0})} &amp; 0 &amp; 0\\
-           0 &amp; p_{(\text{1})} &amp; 0\\
-           0 &amp; 0 &amp; p_{(\text{1})}\\
-           0 &amp; 0 &amp; 0
-         \end{pmatrix}.
-\end{equation}\]</span></li>
-<li>Matrix multiply <span class="math inline">\(\mathbf{P^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>. The top row in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific birth rates.</li>
-<li>Matrix multiply <span class="math inline">\(\mathbf{B^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span>. The diagonal entries in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific survival rates.</li>
-</ol>
-<div id="example-1" class="section level3">
-<h3><span class="header-section-number">3.5.1</span> Example</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>(popbio) <span class="co"># This library includes tools for calculating lambda and matrix sensitivities</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co"># Confirm that our two A matrices give the same asymptotic growth rate</span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="kw">lambda</span>(Apost)</a></code></pre></div>
-<pre><code>## [1] 0.9986679</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">lambda</span>(Apre)</a></code></pre></div>
-<pre><code>## [1] 0.9986679</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># Calculate the sensitivity matrices</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">Spost &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apost)</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">Spre &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apre)</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="co"># Do the matrix multiplication to calculate the sensitivities to survival</span></a>
-<a class="sourceLine" id="cb24-6" data-line-number="6">Stemp1 &lt;-<span class="st"> </span><span class="kw">t</span>(B) <span class="op">%*%</span><span class="st"> </span>Spost</a>
-<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="kw">diag</span>(Stemp1[, <span class="dv">1</span><span class="op">:</span>m])</a></code></pre></div>
-<pre><code>## [1] 0.837520960 0.480823977 0.366397726 0.198614806 0.125950860 0.014929771
-## [7] 0.008135051</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to birth rates</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">Stemp2 &lt;-<span class="st"> </span><span class="kw">t</span>(P) <span class="op">%*%</span><span class="st"> </span>Spre</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">Stemp2[<span class="dv">1</span>, ]</a></code></pre></div>
-<pre><code>##        age 1        age 2        age 3        age 4        age 5 
-## 0.1507669993 0.1096028394 0.0563012534 0.0203518625 0.0035663265 
-##        age 6        age 7 
-## 0.0024997584 0.0007158845</code></pre>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Caswell1994">
-<p>Caswell, H., and M. C. Trevisan. 1994. “Sensitivity analysis of periodic matrix models.” <em>Ecology</em> 75: 1299–03.</p>
-</div>
 <div id="ref-Fujiwara2001">
 <p>Fujiwara, M., and H. Caswell. 2001. “Demography of the endangered North Atlantic right whale.” <em>Nature</em> 414: 537–41.</p>
 </div>

@@ -194,6 +194,19 @@ lambda(Apre)
 ```
 Yup, they match!
 
+We will want to use this model later in the book, so package it up into a list for easy access:
+```{r}
+lizard_age_mpm <- list(
+  Apost = Apost,
+  Apre = Apre,
+  B = B,
+  P = P,
+  px = px,
+  bx = bx,
+  m = m
+) 
+```
+
 ## Why use this recipe?
 Now, these matrices don't look that complex; why didn't I tell you how to construct them directly, rather than constructing the intermediate birth and survival matrices? Look at the matrix elements on the top row of each matrix; these are called the *fertility coefficients*, and represent the reproducive component of the model. Look at how they are constructed from survival and birth rates: does this make sense to you? If it does not, don't worry: it is not an implementation of biological intuition, but instead a bunch of bookkeeping. But first I would need to convince you that these are the right formulas; and then I would need to look over your shoulder and remind you to use them each time you constructed a model, because, like double-entry bookkeeping, it is easy to forget what to do unless you do it often.
 
@@ -245,60 +258,3 @@ Finally, the model assumes that all individuals of a given age have the same bir
 Violation of this assumption creates "unmodelled heterogeneity," and might affect the predictions of your model, depending on the nature of the heterogeneity and the way you are using the model.
 Both the identification of such heterogeneity and the consequences are ongoing areas of research; I won't provide a general treatment in this book, but will touch on it in certain points where it commonly arises.
 
-## Sensitivity analyses
-This book is about MPM construction, not the analysis of such models. 
-Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted $\lambda$) to changes in the age-specific birth and death rates. 
-Existing tools (e.g., the `sensitivity()` function in the **popbio** R package) can calculate sensitivities of $\lambda$ to changes in the elements of an annual projection matrix ($\vect{A_{post}}$ or $\vect{A_{pre}}$). 
-However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. \@ref(eq:A3-pre-post)).
-Extracting the sensitivities of $\lambda$ to vital rates from the sensitivities of $\lambda$ to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.
-
-Instead, we can make use of established procedures for sensitivy analysis of "periodic matrix products" [@Caswell1994].
-The recipe is as follows:
-
-1. Construct both the postbreeding census and prebreeding census projection matrices ($\vect{A_{post}}$ and $\vect{A_{pre}}$).
-2. Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
-We will call those $\vect{S_A}^{\text{(post)}}$ and $\vect{S_A}^{\text{(pre)}}$.
-3. Construct the *transpose* of the $\vect{B}$ and $\vect{P}$ matrices by swapping the rows and columns. 
-We will call these $\vect{B^T}$ and $\vect{P^T}$.
-For the $m=3$ example, these look like 
-\begin{equation}
-\vect{B^T} = \begin{pmatrix}
-              \b1 & 1 & 0 & 0\\
-              \b2 & 0 & 1 & 0\\
-              \b3 & 0 & 0 & 1
-            \end{pmatrix}
-\end{equation}
-and
-\begin{equation}
-\vect{P^T} = \begin{pmatrix}
-              \p0 & 0 & 0\\
-              0 & \p1 & 0\\
-              0 & 0 & \p1\\
-              0 & 0 & 0
-            \end{pmatrix}.
-\end{equation}
-4. Matrix multiply $\vect{P^T}$ by $\vect{S_A}^{\text{(pre)}}$. The top row in the resulting matrix contains the sensitivities of $\lambda$ to the age-specific birth rates.
-5. Matrix multiply $\vect{B^T}$ by $\vect{S_A}^{\text{(post)}}$. The diagonal entries in the resulting matrix contains the sensitivities of $\lambda$ to the age-specific survival rates.
-
-
-
-### Example
-```{r}
-library(popbio) # This library includes tools for calculating lambda and matrix sensitivities
-
-# Confirm that our two A matrices give the same asymptotic growth rate
-lambda(Apost)
-lambda(Apre)
-
-# Calculate the sensitivity matrices
-Spost <- sensitivity(Apost)
-Spre <- sensitivity(Apre)
-
-# Do the matrix multiplication to calculate the sensitivities to survival
-Stemp1 <- t(B) %*% Spost
-diag(Stemp1[, 1:m])
-
-# Do the matrix multiplication to calculate the sensitivities to birth rates
-Stemp2 <- t(P) %*% Spre
-Stemp2[1, ]
-```

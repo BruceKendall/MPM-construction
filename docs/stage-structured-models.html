@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-11-22" />
+<meta name="date" content="2019-12-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,9 +158,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.4" data-path="age-structured-models.html"><a href="age-structured-models.html#dependent-offspring"><i class="fa fa-check"></i><b>3.4.4</b> Dependent offspring</a></li>
 <li class="chapter" data-level="3.4.5" data-path="age-structured-models.html"><a href="age-structured-models.html#individual-heterogeneity"><i class="fa fa-check"></i><b>3.4.5</b> Individual heterogeneity</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="age-structured-models.html"><a href="age-structured-models.html#sensitivity-analyses"><i class="fa fa-check"></i><b>3.5</b> Sensitivity analyses</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="age-structured-models.html"><a href="age-structured-models.html#example-1"><i class="fa fa-check"></i><b>3.5.1</b> Example</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="stage-structured-models.html"><a href="stage-structured-models.html"><i class="fa fa-check"></i><b>4</b> Stage-Structured Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="stage-structured-models.html"><a href="stage-structured-models.html#the-recipe-1"><i class="fa fa-check"></i><b>4.1</b> The recipe</a><ul>
@@ -170,9 +167,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.4" data-path="stage-structured-models.html"><a href="stage-structured-models.html#construct-the-developmental-transition-matrix-mathbft"><i class="fa fa-check"></i><b>4.1.4</b> Construct the developmental transition matrix, <span class="math inline">\(\mathbf{T}\)</span></a></li>
 <li class="chapter" data-level="4.1.5" data-path="stage-structured-models.html"><a href="stage-structured-models.html#combine-the-birth-survival-and-transition-matrices-into-the-projection-matrix"><i class="fa fa-check"></i><b>4.1.5</b> Combine the birth, survival, and transition matrices into the projection matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-2"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
+<li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-1"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
+<li class="chapter" data-level="6" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html"><i class="fa fa-check"></i><b>6</b> Sensititivity analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#sensitivity-analysis-of-age-structured-mpms"><i class="fa fa-check"></i><b>6.1</b> Sensitivity analysis of age-structured MPMs</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#example-2"><i class="fa fa-check"></i><b>6.1.1</b> Example</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -386,24 +388,24 @@ It is far simpler, conceptually and operationally, to plug values into <span cla
 Or even better, have the computer do it for you!</p>
 </div>
 </div>
-<div id="example-2" class="section level2">
+<div id="example-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Example</h2>
 <p>To illustrate these calculations, we use data on the frog <em>Rana aurora</em> from Table 1 of <span class="citation">Biek et al. (<a href="#ref-Biek2002">2002</a>)</span>. There are seven stages (eggs, embryos, larae, metamorphs, juveniles and adults), but the first four are completed in the course of the animal’s first year, so for the model we focus only on eggs, juveniles, and adults.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">303</span>)</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.92</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.03</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.55</span>, <span class="fl">0.36</span>, <span class="fl">0.69</span>)</a>
-<a class="sourceLine" id="cb28-3" data-line-number="3">gx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.09</span><span class="op">/</span><span class="fl">0.36</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb28-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb28-5" data-line-number="5">l &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb28-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb28-7" data-line-number="7">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, <span class="kw">diag</span>(l))</a>
-<a class="sourceLine" id="cb28-8" data-line-number="8">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
-<a class="sourceLine" id="cb28-9" data-line-number="9">T &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">-</span>gx)</a>
-<a class="sourceLine" id="cb28-10" data-line-number="10">T[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span>gx[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb28-11" data-line-number="11">T[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span>gx[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb28-12" data-line-number="12">T &lt;-<span class="st"> </span>T[<span class="op">-</span><span class="dv">1</span>, ]</a>
-<a class="sourceLine" id="cb28-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb28-14" data-line-number="14">Apre &lt;-<span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
-<a class="sourceLine" id="cb28-15" data-line-number="15">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">bx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">303</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">px &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.92</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.03</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.55</span>, <span class="fl">0.36</span>, <span class="fl">0.69</span>)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">gx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.09</span><span class="op">/</span><span class="fl">0.36</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">l &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">B &lt;-<span class="st"> </span><span class="kw">rbind</span>(bx, <span class="kw">diag</span>(l))</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">P &lt;-<span class="st"> </span><span class="kw">diag</span>(px)</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">T &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">-</span>gx)</a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">T[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span>gx[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb21-11" data-line-number="11">T[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span>gx[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb21-12" data-line-number="12">T &lt;-<span class="st"> </span>T[<span class="op">-</span><span class="dv">1</span>, ]</a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14">Apre &lt;-<span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P <span class="op">%*%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb21-15" data-line-number="15">Apost &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>T <span class="op">%*%</span><span class="st"> </span>P</a></code></pre></div>
 
 </div>
 </div>

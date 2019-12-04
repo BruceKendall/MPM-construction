@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Size-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information</title>
-  <meta name="description" content="Chapter 5 Size-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  <title>Chapter 6 Sensititivity analysis | Reliable Construction of Matrix Population Models from Demographic Information</title>
+  <meta name="description" content="Chapter 6 Sensititivity analysis | Reliable Construction of Matrix Population Models from Demographic Information" />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Size-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta property="og:title" content="Chapter 6 Sensititivity analysis | Reliable Construction of Matrix Population Models from Demographic Information" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Size-Structured Models | Reliable Construction of Matrix Population Models from Demographic Information" />
+  <meta name="twitter:title" content="Chapter 6 Sensititivity analysis | Reliable Construction of Matrix Population Models from Demographic Information" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="stage-structured-models.html"/>
-<link rel="next" href="sensititivity-analysis.html"/>
+<link rel="prev" href="size-structured-models.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -196,17 +196,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="size-structured-models" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Size-Structured Models</h1>
+<div id="sensititivity-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Sensititivity analysis</h1>
 
+
+<p>This book is about MPM construction, not the analysis of such models.
+Nevertheless, the construction of the annual projection matrix by way of separate birth and survival matrices creates a way to easily calculate the sensitivity and elasticity of the asymptotic growth rate (usually denoted <span class="math inline">\(\lambda\)</span>) to changes in the age-specific birth and death rates.
+Existing tools (e.g., the <code>sensitivity()</code> function in the <strong>popbio</strong> R package) can calculate sensitivities of <span class="math inline">\(\lambda\)</span> to changes in the elements of an annual projection matrix (<span class="math inline">\(\mathbf{A_{post}}\)</span> or <span class="math inline">\(\mathbf{A_{pre}}\)</span>).
+However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. <a href="age-structured-models.html#eq:A3-pre-post">(3.2)</a>).
+Extracting the sensitivities of <span class="math inline">\(\lambda\)</span> to vital rates from the sensitivities of <span class="math inline">\(\lambda\)</span> to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.</p>
+<p>Instead, we can make use of established procedures for sensitivy analysis of “periodic matrix products” <span class="citation">(Caswell and Trevisan <a href="#ref-Caswell1994">1994</a>)</span>.
+We will start with the age-structured model, for which the analysis is particularly straightforward, and then move on to the more complex models.</p>
+<div id="sensitivity-analysis-of-age-structured-mpms" class="section level2">
+<h2><span class="header-section-number">6.1</span> Sensitivity analysis of age-structured MPMs</h2>
+<p>Here, there are just two “seasons:” from the beginning of the breeding period to the end of the breeding period (represented by the matrix <span class="math inline">\(\mathbf{B}\)</span>); and from the end of the breeding period in one year to the beginning of the breeding period in the next year (represented by the matrix <span class="math inline">\(\mathbf{P}\)</span>).</p>
+<p>The recipe is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Construct both the postbreeding census and prebreeding census projection matrices (<span class="math inline">\(\mathbf{A_{post}}\)</span> and <span class="math inline">\(\mathbf{A_{pre}}\)</span>).</li>
+<li>Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
+We will call those <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span> and <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>.</li>
+<li>Construct the <em>transpose</em> of the <span class="math inline">\(\mathbf{B}\)</span> and <span class="math inline">\(\mathbf{P}\)</span> matrices by swapping the rows and columns.
+We will call these <span class="math inline">\(\mathbf{B^T}\)</span> and <span class="math inline">\(\mathbf{P^T}\)</span>.
+For the <span class="math inline">\(m=3\)</span> example, these look like
+<span class="math display">\[\begin{equation}
+\mathbf{B^T} = \begin{pmatrix}
+           b_{(\text{1})} &amp; 1 &amp; 0 &amp; 0\\
+           b_{(\text{2})} &amp; 0 &amp; 1 &amp; 0\\
+           b_{(\text{3})} &amp; 0 &amp; 0 &amp; 1
+         \end{pmatrix}
+\end{equation}\]</span>
+and
+<span class="math display">\[\begin{equation}
+\mathbf{P^T} = \begin{pmatrix}
+           p_{(\text{0})} &amp; 0 &amp; 0\\
+           0 &amp; p_{(\text{1})} &amp; 0\\
+           0 &amp; 0 &amp; p_{(\text{1})}\\
+           0 &amp; 0 &amp; 0
+         \end{pmatrix}.
+\end{equation}\]</span></li>
+<li>Matrix multiply <span class="math inline">\(\mathbf{P^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(pre)}}\)</span>. The top row in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific birth rates.</li>
+<li>Matrix multiply <span class="math inline">\(\mathbf{B^T}\)</span> by <span class="math inline">\(\mathbf{S_A}^{\text{(post)}}\)</span>. The diagonal entries in the resulting matrix contains the sensitivities of <span class="math inline">\(\lambda\)</span> to the age-specific survival rates.</li>
+</ol>
+<div id="example-2" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Example</h3>
+<p>We will revisit the lizard MPM from chapter X.
+First we will clear the workspace of existing matrices and other relevant objects, and then attach the model we saved in chapter X, which will make opjects like <code>Apre</code> available to us:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">names</span>(lizard_age_mpm)) <span class="co"># Clear the workspace of potential name conflicts</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">attach</span>(lizard_age_mpm) <span class="co"># Get the age structured lizard model from ch. 3.</span></a></code></pre></div>
+<p>Now use the <strong>popbio</strong> library to calculate the matrix sensitivities of <code>Apost</code> and <code>Apre</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(popbio) <span class="co"># This library includes tools for calculating lambda and matrix sensitivities</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co"># Calculate the sensitivity matrices</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">Spost &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apost)</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">Spre &lt;-<span class="st"> </span><span class="kw">sensitivity</span>(Apre)</a></code></pre></div>
+<p>Now we combine steps 3 and 4 to calculate the sensitivities of <span class="math inline">\(\lambda\)</span> to survival.
+To do a matrix transpose in R, use the <code>t()</code> function.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to survival</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">Stemp1 &lt;-<span class="st"> </span><span class="kw">t</span>(B) <span class="op">%*%</span><span class="st"> </span>Spost</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">diag</span>(Stemp1[, <span class="dv">1</span><span class="op">:</span>m])</a></code></pre></div>
+<pre><code>## [1] 0.837520960 0.480823977 0.366397726 0.198614806 0.125950860 0.014929771
+## [7] 0.008135051</code></pre>
+<p>And now we do the same to calculate the sensitivity of <span class="math inline">\(\lambda\)</span> to age-specific birth rates:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># Do the matrix multiplication to calculate the sensitivities to birth rates</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">Stemp2 &lt;-<span class="st"> </span><span class="kw">t</span>(P) <span class="op">%*%</span><span class="st"> </span>Spre</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">Stemp2[<span class="dv">1</span>, ]</a></code></pre></div>
+<pre><code>##        age 1        age 2        age 3        age 4        age 5 
+## 0.1507669993 0.1096028394 0.0563012534 0.0203518625 0.0035663265 
+##        age 6        age 7 
+## 0.0024997584 0.0007158845</code></pre>
+<p>[Discuss; show how to get elasticities from these]</p>
+<p>Finally, it’s always good practice to clean up the workspace!</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">detach</span>(lizard_age_mpm) <span class="co"># Clean up</span></a></code></pre></div>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Caswell1994">
+<p>Caswell, H., and M. C. Trevisan. 1994. “Sensitivity analysis of periodic matrix models.” <em>Ecology</em> 75: 1299–03.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="stage-structured-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sensititivity-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="size-structured-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
