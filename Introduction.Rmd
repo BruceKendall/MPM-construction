@@ -13,15 +13,36 @@ Ultimately, an individual's short-term fitness (its survival probability or mort
 Simple models that characterize the population simply by its abundance, density, or biomass cannot represent this biological richness; thus, they do no provide insight on whether this richness matters for population dynamics, or how it might be exploited to manage the population (e.g., to arrest the decline of a rare species).
 On the other hand, a model that encompassed all of this, together with all of the feedback loops between the focal species and the ecological community it's embedded in, would be tremendously complex (browse any issue of the journal *Ecological Modelling* to see examples) and would require tremendous amounts of data to estimate all the parameters.
 
-MPMs are intermediate complexity
+Matrix population models (MPMs) are a compromise with intermediate complexity.
+They assume that individuals can be classified into a finite number of discrete states, and that an individual's state fully determines the individual's reproductive, survival, and growth rates in a given environment.
 
-Assumptions: discrete state and discrete time; also linearity for standard model
+MPMs also use a discrete time step; this is usually one year for models of free-living organisms, but may be shorter or longer. 
+Thus, the model implicitly integrates over events occuring within the time step.
 
-"M" comes from use of matrix algebra to both make representation more compact and to give access to analytic and computational tools
+In addition, the standard MPM assumes no density dependence in demography.
+This allows access to a variety of analytic tools, but means that long-term projections should be taken with a large dash of salt.
+
+The "matrix" in matrix population models does not have any biological meaning. 
+Rather, it comes from use of matrix algebra to both make representation more compact and to give access to analytic and computational tools
 
 The standard models only require information on survival fraction and mean birth rates across individuals within each class, as well as information on the probability that an individual moves from one class to another.
+This information might be assembled in a life table, especially if the population is classified by age, but this is not a requirement.
+This information can come from a variety of data sources, each with strengths and weaknesses (see chapter XX).
+If you have data from a single year, or estimates that are multi-year averages, then you can construct a single matrix.
+With estimates from multiple years, you can construct a matrix for each year, which allows you to construct a stochastic MPM that allows you to examine the effects of environmental variability.
 
 ## What are matrix population models used for?
+You may be reading this book because you have collected demographic data on a population for some other objective, and a colleague or reviewer said "You should use that data to construct a matrix population model!"
+Why would you want to do that?
+
+Matrix population models have been extensively used in studies of life history evolution as well as for addressing management questions for endangered or invasive species (fisheries scientists tend not to use the MPM formalism for their age-structured models).
+In the literature, we find that most MPMs are used to calculate the populations deterministic or stochastic asymptotic population growth rate, together with sensitivies of that growth rate to underlying model parameters.
+The asymptotic growth rate, generally denoted $\lambda$ for deterministic MPMs and $\log \lambda_S$ for stochastic MPMs, can be viewed as an integrated measure of population performance (for population management problems) or as fitness (for evolutionary questions).
+The sensitivities (and their cousins, elasticities) of the asymptotic growth rate provides information about the likely effect of a management intervention or response to selection, respectively.
+
+Quite a few other quantities can be calculated from an MPM, and sensitivities of these quantities to various model components can be analyzed (@Caswell2019Book).
+However, few of these have been taken up to the degree that the analysis of the asymptotic growth rate has.
+Recent and ongoing comparative analyses of MPMs in the COMADRE and COMPADRE databases may reveal which of these analyses are particularly useful for various purposes.
 
 ## A brief history of matrix population models
 
