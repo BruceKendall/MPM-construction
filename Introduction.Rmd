@@ -17,7 +17,7 @@ Matrix population models (MPMs) are a compromise with intermediate complexity.
 They assume that individuals can be classified into a finite number of discrete states, and that an individual's state fully determines the individual's reproductive, survival, and growth rates in a given environment.
 
 MPMs also use a discrete time step; this is usually one year for models of free-living organisms, but may be shorter or longer. 
-Thus, the model implicitly integrates over events occuring within the time step.
+Thus, the model implicitly integrates over events occurring within the time step.
 
 In addition, the standard MPM assumes no density dependence in demography.
 This allows access to a variety of analytic tools, but means that long-term projections should be taken with a large dash of salt.
@@ -36,7 +36,7 @@ You may be reading this book because you have collected demographic data on a po
 Why would you want to do that?
 
 Matrix population models have been extensively used in studies of life history evolution as well as for addressing management questions for endangered or invasive species (fisheries scientists tend not to use the MPM formalism for their age-structured models).
-In the literature, we find that most MPMs are used to calculate the populations deterministic or stochastic asymptotic population growth rate, together with sensitivies of that growth rate to underlying model parameters.
+In the literature, we find that most MPMs are used to calculate the populations deterministic or stochastic asymptotic population growth rate, together with sensitivities of that growth rate to underlying model parameters.
 The asymptotic growth rate, generally denoted $\lambda$ for deterministic MPMs and $\log \lambda_S$ for stochastic MPMs, can be viewed as an integrated measure of population performance (for population management problems) or as fitness (for evolutionary questions).
 The sensitivities (and their cousins, elasticities) of the asymptotic growth rate provides information about the likely effect of a management intervention or response to selection, respectively.
 
@@ -59,9 +59,9 @@ It turns out to be surprisingly difficult to introduce this precision.
 I won't belabor the details of those errors here; see the publication if you are interested.
 Based on teaching MPMs to graduate students for 20 years, I have concluded that there are three general factors leading to high error rates persisting despite the fact that most textbooks describe the issues:
 
-1. Linguistic ambiguity arises when biologically meaningful terms are applied to the model in ways that don't quite match up. For example, "yearling" and "young of year" refer to individuals in their first year of life. In an age-structured MPM, individuals need to be classified as "newborn" or "one year old" (i.e., having just reached their first birthday). Which of those does the term "yearling" apply to? As a second example, the terms "fecundity," "fertility," and "reproduction" are all used (often interchangably) to refer to the production of new individuals by parents. However, each of these terms as specific (and sometimes contrasting) meanings in various fields of biology; when this doesn't match the meaning as applied to the MPM, it can lead to confusion.
+1. Linguistic ambiguity arises when biologically meaningful terms are applied to the model in ways that don't quite match up. For example, "yearling" and "young of year" refer to individuals in their first year of life. In an age-structured MPM, individuals need to be classified as "newborn" or "one year old" (i.e., having just reached their first birthday). Which of those does the term "yearling" apply to? As a second example, the terms "fecundity," "fertility," and "reproduction" are all used (often interchangeably) to refer to the production of new individuals by parents. However, each of these terms as specific (and sometimes contrasting) meanings in various fields of biology; when this doesn't match the meaning as applied to the MPM, it can lead to confusion.
 2. The correct bookkeeping can lead to terms in the model that seem to defy biological intuition (this is true in financial bookkeeping as well!), leading non-modelers to discard these terms in favor of ones that match intuition. For example, in some types of MPMs that require a direct link from non-reproductive juveniles to newborns.
-3. Not all processes in the life cycle span the same amount of time, yet the model requires a consistent timestep. For example, birth or egg laying occurs on timescales of seconds to days, maturing from a newly laid egg to an independent fledgling may take a couple of months, aging a year takes a year, and reaching reproductive maturity may take decades. Fitting these into a model with an annual time step requires explicitly integrating across events occuring within a year, and appropriately subdividing processes that take more than a year. Doing these leads to complicated mathematical expressions that even experienced modelers make mistakes with.
+3. Not all processes in the life cycle span the same amount of time, yet the model requires a consistent timestep. For example, birth or egg laying occurs on timescales of seconds to days, maturing from a newly laid egg to an independent fledgling may take a couple of months, aging a year takes a year, and reaching reproductive maturity may take decades. Fitting these into a model with an annual time step requires explicitly integrating across events occurring within a year, and appropriately subdividing processes that take more than a year. Doing these leads to complicated mathematical expressions that even experienced modelers make mistakes with.
 
 If one can "think like a modeler" then the complexities of MPM construction make sense.
 Most, if not all, existing textbooks try to teach you to think like a modeler.
@@ -69,7 +69,7 @@ But if you are trained to think like a biologist, or ecologist, or conservationi
 
 My goal in this book is to take a different approach.
 It turns out that most of the bookkeeping that generates complex and non-intuitive terms is entirely rote, and can be attained through simple matrix multiplication (which can be done either by hand or by a computer).
-I provide you with recipes for shaping your biogical information (e.g., age-specific birth and survival rates) into forms from which a turn of the matrix multiplication machinery will produce an appropriate MPM.
+I provide you with recipes for shaping your biological information (e.g., age-specific birth and survival rates) into forms from which a turn of the matrix multiplication machinery will produce an appropriate MPM.
 Furthermore, I try to link the notation as closely as possible to the biology.
 Finally, I try to provide clear guidance where you need to think about your biological information in a very specific way before putting it into the model.
 
