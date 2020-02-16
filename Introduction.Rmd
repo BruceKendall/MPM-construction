@@ -49,6 +49,30 @@ Recent and ongoing comparative analyses of MPMs in the COMADRE and COMPADRE data
 ## Common pitfalls in matrix population model construction
 Summary of ideas and results in @Kendall2019.
 
+If you know the life history of your organism, it is usually straightforward to draw a conceptual diagram that shows all of the class levels an individual could be in (e.g., ages or stages), and arrows linking them (Fig. X).
+The arrows are of two kinds: the first describes what happens to existing individuals (survival, aging, maturation, growth) and the other relates to the production of new individuals through reproduction.
+This diagram is a highly intuitive but qualitative representation of the life cycle.
+When converting this into a model for projecting the population into the future, we need to be precise in our bookkeeping.
+
+It turns out to be surprisingly difficult to introduce this precision.
+@Kendall2019 examined the prevalence of three common mistakes in the construction of animal MPMs, and found error rates as high as 62%, with no trend in error rates over time.
+I won't belabor the details of those errors here; see the publication if you are interested.
+Based on teaching MPMs to graduate students for 20 years, I have concluded that there are three general factors leading to high error rates persisting despite the fact that most textbooks describe the issues:
+
+1. Linguistic ambiguity arises when biologically meaningful terms are applied to the model in ways that don't quite match up. For example, "yearling" and "young of year" refer to individuals in their first year of life. In an age-structured MPM, individuals need to be classified as "newborn" or "one year old" (i.e., having just reached their first birthday). Which of those does the term "yearling" apply to? As a second example, the terms "fecundity," "fertility," and "reproduction" are all used (often interchangably) to refer to the production of new individuals by parents. However, each of these terms as specific (and sometimes contrasting) meanings in various fields of biology; when this doesn't match the meaning as applied to the MPM, it can lead to confusion.
+2. The correct bookkeeping can lead to terms in the model that seem to defy biological intuition (this is true in financial bookkeeping as well!), leading non-modelers to discard these terms in favor of ones that match intuition. For example, in some types of MPMs that require a direct link from non-reproductive juveniles to newborns.
+3. Not all processes in the life cycle span the same amount of time, yet the model requires a consistent timestep. For example, birth or egg laying occurs on timescales of seconds to days, maturing from a newly laid egg to an independent fledgling may take a couple of months, aging a year takes a year, and reaching reproductive maturity may take decades. Fitting these into a model with an annual time step requires explicitly integrating across events occuring within a year, and appropriately subdividing processes that take more than a year. Doing these leads to complicated mathematical expressions that even experienced modelers make mistakes with.
+
+If one can "think like a modeler" then the complexities of MPM construction make sense.
+Most, if not all, existing textbooks try to teach you to think like a modeler.
+But if you are trained to think like a biologist, or ecologist, or conservationist, then learning to reliably "think like a modeler" is a big task, probably only worth doing if modeling is going to be an important component of your future work.
+
+My goal in this book is to take a different approach.
+It turns out that most of the bookkeeping that generates complex and non-intuitive terms is entirely rote, and can be attained through simple matrix multiplication (which can be done either by hand or by a computer).
+I provide you with recipes for shaping your biogical information (e.g., age-specific birth and survival rates) into forms from which a turn of the matrix multiplication machinery will produce an appropriate MPM.
+Furthermore, I try to link the notation as closely as possible to the biology.
+Finally, I try to provide clear guidance where you need to think about your biological information in a very specific way before putting it into the model.
+
 ## Mathematical essentials
 ### Notation
 There is no getting around the fact that MPMs are mathematical constructs.
