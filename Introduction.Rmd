@@ -4,7 +4,7 @@
 The population models that are taught in undergraduate ecology courses---the exponential growth model, logistic model, Ricker model, etc.---are useful for explaining and illustrating basic patterns in population dynamics, such as patterns of exponential growth, the effects of density dependence, and phenomena such as population cycles and chaos. 
 Their utility stems from their simplicity, which allows them to be analyzed without recourse to pages of advanced math. 
 In particular, most of these foundational models assume that all individuals in the population can be treated as if they have identical birth and death rates.
-As a practicing ecologist or conservation biologist, you know first-hand that all individuals in a population are *not* identical: they age, develop, and grow; and birth and death rates (which I will collectiely call "demography") often vary systematically with age, developmental stage, and size.
+As a practicing ecologist or conservation biologist, you know first-hand that all individuals in a population are *not* identical: they age, develop, and grow; and birth and death rates (which I will collectively call "demography") often vary systematically with age, developmental stage, and size.
 Individuals can differ in other important ways as well: for example, individuals of a given age may exhibit morphological variation resulting from genetic differences or heterogeneity in their developmental environment; or they might exhibit different behavioral responses to a given stimulus resulting from variation in prior experience.
 These phenotypic differences can also affect demography.
 Ultimately, an individual's short-term fitness (its survival probability or mortality risk, as well as its expected birth rate) depends on both its *state* (age, stage, or size), its *phenotype*, and the *environment* (encompassing abiotic conditions and resources as well other organisms with which it interacts) in which it lives.
@@ -15,7 +15,7 @@ MPMs are intermediate complexity
 
 Assumptions: discrete state and discrete time; also linearity for standard model
 
-"M" comes from use of matrix algebra to both make representation more compact and to give access to analytical and computational tools
+"M" comes from use of matrix algebra to both make representation more compact and to give access to analytic and computational tools
 
 The standard models only require information on survival fraction and mean birth rates across individuals within each class, as well as information on the probability that an individual moves from one class to another.
 
@@ -30,11 +30,11 @@ Summary of ideas and results in @Kendall2019.
 ### Notation
 There is no getting around the fact that MPMs are mathematical constructs.
 However, I will try to make the notation be as closely tied to the biology as possible. 
-One challenge is that we nned a consistent way to reference demographic rates of specific age, size, or stage classes.
+One challenge is that we need a consistent way to reference demographic rates of specific age, size, or stage classes.
 In *mathematical* notation, $p_i$ is the survival rate of individuals in the $i$'th class.
 Thus, for example, in an age-structured model with age classes 0, 1, 2, and so on, $p_2$ is the survival of one-year-olds.
 In a stage-structured model with stage classes newborn, juvenile, sub-adult and adult, then $p_2$ is the survival of juveniles.
-Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don't align.^[One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies betwewn age-structured and other models. It also doesn't work in R, where the indexing of a vector always starts at one.]
+Keeping track of this mapping requires extra cognitive work, and can be especially confusing in age-structured models where the mathematical index and the biological age don't align.^[One could, of course, start the mathematical index at zero, and you will see this in some textbooks; but this leads to inconsistencies between age-structured and other models. It also doesn't work in R, where the indexing of a vector always starts at one.]
 Thus I introduce a *biological* notation, in which the actual age or the name of the class is shown between parentheses in the subscript.
 Thus, in an age-structured model, $p_{(2)}$ is the survival of two-year-olds (survival from age 2 to age 3).
 In a stage-structured model, $p_{(\text{sub-adult})}$ is the annual survival of individuals who start the year in the sub-adult stage.

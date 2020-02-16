@@ -1,4 +1,4 @@
-# Sensititivity analysis
+# Sensitivity analysis
 \newcommand{\vect}[1]{\mathbf{#1}}
 \newcommand{\pari}[2]{#1_{(\text{#2})}}
 \newcommand{\p}[1]{\pari{p}{#1}}
@@ -15,7 +15,7 @@ Existing tools (e.g., the `sensitivity()` function in the **popbio** R package) 
 However, the matrix entries may be functions of multiple vital rates, and individual vital rates may appear in multiple matrix entries (see eqs. \@ref(eq:A3-pre-post)).
 Extracting the sensitivities of $\lambda$ to vital rates from the sensitivities of $\lambda$ to matrix elements requires careful accounting, as well as the application of basic differential calculus; doing this by hand is tedious and error prone.
 
-Instead, we can make use of established procedures for sensitivy analysis of "periodic matrix products" [@Caswell1994].
+Instead, we can make use of established procedures for sensitivity analysis of "periodic matrix products" [@Caswell1994].
 We will start with the age-structured model, for which the analysis is particularly straightforward, and then move on to the more complex models.
 
 ## Sensitivity analysis of age-structured MPMs
@@ -24,7 +24,7 @@ Here, there are just two "seasons:" from the beginning of the breeding period to
 The recipe is as follows:
 
 1. Construct both the postbreeding census and prebreeding census projection matrices ($\vect{A_{post}}$ and $\vect{A_{pre}}$).
-2. Use a standard toolkit to constuct the sensitivity matrices of the two projection matrices.
+2. Use a standard toolkit to construct the sensitivity matrices of the two projection matrices.
 We will call those $\vect{S_A}^{\text{(post)}}$ and $\vect{S_A}^{\text{(pre)}}$.
 3. Construct the *transpose* of the $\vect{B}$ and $\vect{P}$ matrices by swapping the rows and columns. 
 We will call these $\vect{B^T}$ and $\vect{P^T}$.
@@ -52,7 +52,7 @@ and
 
 ### Example
 We will revisit the lizard MPM from chapter X.
-First we will clear the workspace of existing matrices and other relevant objects, and then  attach the model we saved in chapter X, which will make opjects like `Apre` available to us:
+First we will clear the workspace of existing matrices and other relevant objects, and then  attach the model we saved in chapter X, which will make objects like `Apre` available to us:
 ```{r}
 rm(list = names(lizard_age_mpm)) # Clear the workspace of potential name conflicts
 attach(lizard_age_mpm) # Get the age structured lizard model from ch. 3.
