@@ -24,7 +24,7 @@
 <meta name="author" content="Bruce E. Kendall" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2020-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,9 +170,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="stage-structured-models.html"><a href="stage-structured-models.html#example-1"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="size-structured-models.html"><a href="size-structured-models.html"><i class="fa fa-check"></i><b>5</b> Size-Structured Models</a></li>
-<li class="chapter" data-level="6" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html"><i class="fa fa-check"></i><b>6</b> Sensititivity analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#sensitivity-analysis-of-age-structured-mpms"><i class="fa fa-check"></i><b>6.1</b> Sensitivity analysis of age-structured MPMs</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="sensititivity-analysis.html"><a href="sensititivity-analysis.html#example-2"><i class="fa fa-check"></i><b>6.1.1</b> Example</a></li>
+<li class="chapter" data-level="6" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html"><i class="fa fa-check"></i><b>6</b> Sensitivity analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html#sensitivity-analysis-of-age-structured-mpms"><i class="fa fa-check"></i><b>6.1</b> Sensitivity analysis of age-structured MPMs</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="sensitivity-analysis.html"><a href="sensitivity-analysis.html#example-2"><i class="fa fa-check"></i><b>6.1.1</b> Example</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -199,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Reliable Construction of Matrix Population Models from Demographic Information</h1>
 <p class="author"><em>Bruce E. Kendall</em></p>
-<p class="date"><em>2019-12-04</em></p>
+<p class="date"><em>2020-02-16</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -207,22 +207,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Over the past three decades, the number of animal and plant MPMs described and analyzed in the peer-reviewed literature has grown faster than linearly.
 This growth can be attributed to two factors.
 First, more studies are collecting complete demographic information on a population, either as an end in itself or as a side effect of other study objectives (e.g., evolutionary ecology studies that track fitness components throughout the lives of individuals and relatedness among individuals generate great demographic data).
-Second, MPMs have been promoted (primarily by modellers) as an “easy” way to integrate demographic demographic information and draw novel conclusions from them.</p>
-<p>Initially, most “empirical MPMs” (models of actual populations, as opposed to theoretical constructs) were created by collaborations between field biologists (who provided the data) and modellers (who took care of the mathematical details).
-Subsequently, MPMs came to be viewed as DIY (do it yourself) models that any trained ecologist or conservation biologist could do, and many MPMs are now published without the assistance of an expert modeller.
+Second, MPMs have been promoted (primarily by modelers) as an “easy” way to integrate demographic demographic information and draw novel conclusions from them.</p>
+<p>Initially, most “empirical MPMs” (models of actual populations, as opposed to theoretical constructs) were created by collaborations between field biologists (who provided the data) and modelers (who took care of the mathematical details).
+Subsequently, MPMs came to be viewed as DIY (do it yourself) models that any trained ecologist or conservation biologist could do, and many MPMs are now published without the assistance of an expert modeler.
 It is true that the <em>conceptual</em> mapping of demographic and life history information to a projection matrix is (usually) straightforward.
-But there are bookkeeping details (that affect the <em>quantititative</em> mapping) that are not biologically intuitive, and may be actively counter-intuitive.
-When following the textbook approaches to MPM construction, getting these bookkeeping details just right can be tricky if one is not used to “thinking like a modeller.”</p>
-<p>Now, I am an ecological modeller, and as such I find the details of MPM bookkeeping intuitive.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+But there are bookkeeping details (that affect the <em>quantitative</em> mapping) that are not biologically intuitive, and may be actively counter-intuitive.
+When following the textbook approaches to MPM construction, getting these bookkeeping details just right can be tricky if one is not used to “thinking like a modeler.”</p>
+<p>Now, I am an ecological modeler, and as such I find the details of MPM bookkeeping intuitive.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 But I also have lots of experience in teaching MPMs to students who are new to modelling, and have noticed the places where they repeatedly have trouble accepting the need for, or even the validity of, the bookkeeping details.
 When building their own models in class exercises, they often make mistakes in these places.
 Furthermore, one of the class assignments is to work with a published MPM of the student’s choice.
 One year, every one of the models selected by the students had mistakes!<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
 This inspired me to take a more systematic look at published MPMs.
 Among animal MPMs, I found that between 35% and 60% (depending on the type of error) of published models were incorrectly formulated; and that the error rate was constant through time.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
-This led me to wonder if there was a more effective way to teach non-modellers how to construct MPMs.</p>
+This led me to wonder if there was a more effective way to teach non-modelers how to construct MPMs.</p>
 <p>The audience for this book is ecologists and conservation biologists whose focus is primarily empirical: you are used to collecting data and analyzing it using <em>statistical</em> models, but you are not well-versed in constructing and analyzing <em>mathematical</em> models.
-In this book I introduce a new approach to MPM construction that keeps you, the biolgist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
+In this book I introduce a new approach to MPM construction that keeps you, the biologist, focused on events in the life cycle of your organism, and uses the computer to integrate all the pieces into the model.
 I am also striving for a presentation that is <em>accessible</em> (in the sense of putting biological concepts ahead of mathematical convenience), <em>consistent</em> in presentation across different types of models, and a <em>comprehensive</em> treatment of the range of life histories that can be represented with MPMs.</p>
 <p>I start with the classic age-, size-, and stage-structured MPMs, assuming that the within-year life-history is fairly straightforward.
 I then show how the general approach can be expanded to incorporate richer biological detail into the model, such as extended pregnancy or periods when the offspring is dependent on its parents for survival.</p>
