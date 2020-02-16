@@ -4,9 +4,11 @@
 The population models that are taught in undergraduate ecology courses---the exponential growth model, logistic model, Ricker model, etc.---are useful for explaining and illustrating basic patterns in population dynamics, such as patterns of exponential growth, the effects of density dependence, and phenomena such as population cycles and chaos. 
 Their utility stems from their simplicity, which allows them to be analyzed without recourse to pages of advanced math. 
 In particular, most of these foundational models assume that all individuals in the population can be treated as if they have identical birth and death rates.
+
 As a practicing ecologist or conservation biologist, you know first-hand that all individuals in a population are *not* identical: they age, develop, and grow; and birth and death rates (which I will collectively call "demography") often vary systematically with age, developmental stage, and size.
 Individuals can differ in other important ways as well: for example, individuals of a given age may exhibit morphological variation resulting from genetic differences or heterogeneity in their developmental environment; or they might exhibit different behavioral responses to a given stimulus resulting from variation in prior experience.
 These phenotypic differences can also affect demography.
+
 Ultimately, an individual's short-term fitness (its survival probability or mortality risk, as well as its expected birth rate) depends on both its *state* (age, stage, or size), its *phenotype*, and the *environment* (encompassing abiotic conditions and resources as well other organisms with which it interacts) in which it lives.
 Simple models that characterize the population simply by its abundance, density, or biomass cannot represent this biological richness; thus, they do no provide insight on whether this richness matters for population dynamics, or how it might be exploited to manage the population (e.g., to arrest the decline of a rare species).
 On the other hand, a model that encompassed all of this, together with all of the feedback loops between the focal species and the ecological community it's embedded in, would be tremendously complex (browse any issue of the journal *Ecological Modelling* to see examples) and would require tremendous amounts of data to estimate all the parameters.
